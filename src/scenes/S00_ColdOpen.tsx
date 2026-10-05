@@ -45,7 +45,7 @@ export const S00ColdOpen: React.FC = () => {
         <polyline points={pts.join(' ')} fill="none" stroke={col} strokeWidth={4} strokeLinejoin="round" />
         <circle cx={head} cy={H / 2 + ecgY(head)} r={7} fill="#fff" />
       </svg>
-      {f >= 48 && f < 70 ? (
+      {f >= 48 && f < 66 ? (
         <div style={{ position: 'absolute', top: 330, width: '100%', textAlign: 'center', transform: `translateX(${jitter}px)` }}>
           <div style={{ fontSize: 76, fontWeight: 700, letterSpacing: 18, color: HUD.warn, textShadow: `0 0 26px ${HUD.warn}` }}>
             <GlitchText text="SIGNAL VERLOREN" at={48} intensity={f < 54 ? 0.5 : 0.12} />
@@ -53,10 +53,10 @@ export const S00ColdOpen: React.FC = () => {
           <div style={{ marginTop: 300, fontSize: 28, letterSpacing: 8, color: 'rgba(255,90,110,0.9)' }}>VITALZEICHEN: 0</div>
         </div>
       ) : null}
-      {f >= 66 ? (
+      {f >= 67 ? (
         <div style={{ position: 'absolute', top: 400, left: 0, right: 0, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 26 }}>
           <div style={{ fontSize: 30, fontWeight: 700, letterSpacing: 10, color: HUD.sys, textShadow: `0 0 14px ${HUD.sys}` }}>
-            <Typewriter text="[SYSTEM]  NEUE SEELE ERKANNT" at={66} cps={60} cursor={false} />
+            <Typewriter text="[SYSTEM]  NEUE SEELE ERKANNT" at={67} cps={60} cursor={false} />
           </div>
           <div style={{ fontSize: 24, letterSpacing: 6, color: HUD.text, opacity: ramp(f, 70, 74) }}>ÜBERTRAGUNG NACH AETHELGARD … {pct}%</div>
           <div style={{ width: 760, height: 10, border: `1px solid rgba(${HUD.sysRGB},0.7)`, opacity: ramp(f, 70, 74) }}>

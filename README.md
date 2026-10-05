@@ -11,7 +11,7 @@ Isekai-Anime im 2D-Action-Stil (Ufotable / MAPPA). KI-Standbilder werden mit Cod
 | 1. Bilder (nur Standbilder, budget-gesichert) | `python3 tools/or_image.py <ASSET_ID>`; Prompts in `production/prompts/ep01_opening.json` |
 | 2. Aufbereitung (2× Upscale, Bloom, Keying) | `python3 tools/prep_assets.py` |
 | 3. Sound-Platzhalter (prozedural) | `python3 tools/make_sfx.py` |
-| 4. Komposition (Remotion / React) | `npm run studio` (Vorschau), `npm run render` |
+| 4. Komposition (Remotion / React) | `npm run studio` (Vorschau); `npx remotion render src/index.ts EP01-Opening out/<name>_master.mp4` → `tools/deliver.sh` (Limiter −1 dBTP, CRF 19) |
 | 5. Visuelle QA | `node tools/stills.mjs out/qa <frame…>` + `python3 tools/contact_sheet.py out/qa out/sheet.jpg` |
 | 6. Scene Matrix | `python3 tools/export_matrix.py` → `docs/SCENE_MATRIX_EP01_opening.md` |
 

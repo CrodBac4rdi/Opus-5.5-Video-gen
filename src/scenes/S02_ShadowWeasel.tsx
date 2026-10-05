@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, random, useCurrentFrame } from 'remotion';
 import { PLATE_OVERSCAN, WEASEL_POINTS } from '../assets';
 import { DioramaCamera, Layer, Plate } from '../engine/camera';
 import { EASE, ramp } from '../engine/core';
@@ -17,8 +17,10 @@ export const S02SH01Emerge: React.FC = () => {
   const body = ramp(f, 26, 50, EASE.inOut);
   const lit = ramp(f, 40, 62, EASE.inOut);
   const eyes = ramp(f, 14, 22) * (0.75 + 0.25 * Math.sin(f * 0.6));
+  // glitch-cut entry: the System registers a hostile presence
+  const gl = f < 4 ? (random(`s02gl${f}`) - 0.5) * 60 : 0;
   return (
-    <AbsoluteFill style={{ background: '#000' }}>
+    <AbsoluteFill style={{ background: '#000', transform: `translateX(${gl}px)`, filter: f < 4 ? 'hue-rotate(-40deg) saturate(2) contrast(1.3)' : undefined }}>
       <DioramaCamera
         keys={[
           { f: 0, x: 0.56, y: 0.57, zoom: 1.08 },

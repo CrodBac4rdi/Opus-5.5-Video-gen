@@ -44,7 +44,7 @@ export const CUES: Cue[] = [
   // S03 - the throw
   { file: 'sfx_throw_whoosh', at: at('S03_SH01_throw_diorama', 2), volume: 0.9 },
   { file: 'sfx_throw_whoosh', at: at('S03_SH02_strike_data_dissolve', 0), volume: 0.7 },
-  { file: 'sfx_impact_crit', at: at('S03_SH02_strike_data_dissolve', 14), volume: 1.0 },
+  { file: 'sfx_impact_crit', at: at('S03_SH02_strike_data_dissolve', 14), volume: 0.82 },
   { file: 'sfx_data_shatter', at: at('S03_SH02_strike_data_dissolve', 22), volume: 0.75 },
   { file: 'sfx_ui_open', at: at('S03_SH02_strike_data_dissolve', 104), volume: 0.45 },
   // S04 - skill unlock + teaser
