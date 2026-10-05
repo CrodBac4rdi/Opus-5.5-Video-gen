@@ -5,9 +5,8 @@ Config.setVideoImageFormat('jpeg');
 Config.setJpegQuality(95);
 Config.setOverwriteOutput(true);
 Config.setConcurrency(4);
-Config.setCodec('h264');
-Config.setCrf(16);
-Config.setPixelFormat('yuv420p');
+// codec/CRF/pixel format are passed per render (tools/render_ep01.sh) so that
+// audio-only renders (--codec=wav) stay possible.
 
 // Cloud containers ship a pre-installed headless Chromium; use it instead of downloading one.
 const preinstalled = '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell';

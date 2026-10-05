@@ -7,7 +7,7 @@
     "studio": "remotion studio src/index.ts",
     "typecheck": "tsc --noEmit",
     "still": "remotion still src/index.ts",
-    "render": "remotion render src/index.ts EP01-Opening out/EP01_opening_master.mp4"
+    "render": "tools/render_ep01.sh"
   },
   "dependencies": {
     "@fontsource/chakra-petch": "5.3.0",

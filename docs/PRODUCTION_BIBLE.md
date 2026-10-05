@@ -39,7 +39,17 @@ KI-Bilder sind **eingefrorene Action-Posen**. Bewegung entsteht ausschließlich 
 
 `plateToLayer()` rechnet Pixelkoordinaten des Original-KI-Bildes in Layer-Koordinaten um. Dadurch sitzen Code-VFX passgenau auf Bild-Features: Licht-Orb, Hand, Stein, Monolith, Kristall des Wiesels.
 
-## 6. Dateiverwaltung & Namenskonvention
+## 6. Tempo-Regeln (seit v03)
+- Diorama-Shot ≥ 4 s (Insert-Shots ≥ 3 s), Kamerabewegungen langsam und eased – keine Dauer-Zooms.
+- UI-Texte bleiben nach dem Fertigtippen ≥ 2,5 s stehen; Typewriter 14–24 Zeichen/s.
+- Höchstens ein neuer UI-Block pro ~2 s; Untertitel und UI-Labels zeitlich staffeln.
+- Jeder ~1-Min-Teil endet mit einem Cliffhanger (Teile stehen in `ep01.shots.json → parts`).
+
+## 7. Kontinuität & Retusche
+- Bildfehler, die nur Kontinuität betreffen (z. B. der aufgehobene Speer liegt noch am Wegrand), werden **im Code** retuschiert (`tools/derive_plates.py`) – kein neuer KI-Call.
+- Verworfene Takes wandern nach `production/raw/_rejected/`; der Versionszähler berücksichtigt sie (kein Namens-Doppel).
+
+## 8. Dateiverwaltung & Namenskonvention
 - **Schema:** `S##_SH##_<beschreibung>_v##[_final]`, z. B. `S03_SH01_throw_action_v01_final`.
 - **Präfixe:**
   - `CHAR_`: Charakter-Referenz
@@ -51,6 +61,6 @@ KI-Bilder sind **eingefrorene Action-Posen**. Bewegung entsteht ausschließlich 
 - **Ordner:**
   - `production/raw/`: Original-Generierungen (freigegeben = `_final`, verworfen → `_rejected/`)
   - `public/assets/EP01/`: render-fertige Assets, erzeugt nur über `tools/prep_assets.py`
-  - `public/sfx/`: Sound-Platzhalter, erzeugt nur über `tools/make_sfx.py`
-  - `src/timeline/*.shots.json`: Single Source of Truth für Timing und Scene Matrix (`tools/export_matrix.py`)
-  - `renders/`: freigegebene Renders `EP01_opening_v##.mp4`
+  - `public/sfx/`: Sound-Platzhalter (Ogg Vorbis), erzeugt nur über `tools/make_sfx.py`
+  - `src/timeline/*.shots.json`: Single Source of Truth für Timing, Teile und Scene Matrix (`tools/export_matrix.py`)
+  - `renders/`: nur die aktuelle Version: `EP01_v##_full.mp4` + `EP01_v##_part{1..4}.mp4` (ältere Versionen bleiben in der Git-Historie)

@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 """Exports the Scene Matrix (Markdown) from the single source of truth:
-src/timeline/ep01_opening.shots.json + production/prompts/ep01_opening.json.
+src/timeline/ep01.shots.json + production/prompts/ep01_opening.json.
 
-    python3 tools/export_matrix.py  ->  docs/SCENE_MATRIX_EP01_opening.md
+    python3 tools/export_matrix.py  ->  docs/SCENE_MATRIX_EP01.md
 """
 import json
 import pathlib
 import re
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-SHOTS = json.loads((ROOT / "src/timeline/ep01_opening.shots.json").read_text())
+SHOTS = json.loads((ROOT / "src/timeline/ep01.shots.json").read_text())
 LIB = json.loads((ROOT / "production/prompts/ep01_opening.json").read_text())
-OUT = ROOT / "docs/SCENE_MATRIX_EP01_opening.md"
+OUT = ROOT / "docs/SCENE_MATRIX_EP01.md"
 
 
 def tc(frame, fps):
@@ -43,25 +43,46 @@ def cell(s):
 
 def main():
     fps = SHOTS["fps"]
+    t = 0
+    for s in SHOTS["shots"]:  # start frames are derived from the durations
+        s["from"] = t
+        t += s["dur"]
+    total = t
     lines = [
         f"# Scene Matrix – {SHOTS['episode']} {SHOTS['title']}",
         "",
-        "> Generated from `src/timeline/ep01_opening.shots.json` by `tools/export_matrix.py` – do not edit by hand.",
-        f"> {SHOTS['width']}×{SHOTS['height']} @ {fps} fps · total {tc(max(s['from'] + s['dur'] for s in SHOTS['shots']), fps)}",
+        "> Generated from `src/timeline/ep01.shots.json` by `tools/export_matrix.py` – do not edit by hand.",
+        f"> {SHOTS['width']}×{SHOTS['height']} @ {fps} fps · total {tc(total, fps)} · {len(SHOTS['shots'])} shots · {len(SHOTS['parts'])} parts",
         "",
-        "| Szene | Shot-ID | Zeit | Story-Zweck | Charakter | Ort | Kamerabewegung | Licht | Audio | Prompt | Benötigte Assets | Status |",
-        "|---|---|---|---|---|---|---|---|---|---|---|---|",
+        "## Teile (TikTok, ~1 min)",
+        "",
+        "| Teil | Titel | Zeit | Cliffhanger |",
+        "|---|---|---|---|",
+    ]
+    for p in SHOTS["parts"]:
+        ps = [s for s in SHOTS["shots"] if s["part"] == p["id"]]
+        a, b = ps[0]["from"], ps[-1]["from"] + ps[-1]["dur"]
+        lines.append(f"| {p['id']} | {cell(p['title'])} | {tc(a, fps)}–{tc(b, fps)} ({(b - a) / fps:.0f} s) | {cell(p['cliffhanger'])} |")
+    lines += [
+        "",
+        "## Shots",
+        "",
+        "| Teil | Szene | Shot-ID | Zeit | Story-Zweck | Charakter | Ort | Kamerabewegung | Licht | Audio | Prompt | Benötigte Assets | Status |",
+        "|---|---|---|---|---|---|---|---|---|---|---|---|---|",
     ]
     for s in SHOTS["shots"]:
-        t = f"{tc(s['from'], fps)}–{tc(s['from'] + s['dur'], fps)}"
-        lines.append("| " + " | ".join(cell(x) for x in [s["scene"], f"`{s['id']}`", t, s["purpose"], s["character"], s["location"], s["camera"], s["light"], s["audio"], s["prompt"], "<br>".join(s["assets"]), s["status"]]) + " |")
+        tcs = f"{tc(s['from'], fps)}–{tc(s['from'] + s['dur'], fps)}"
+        lines.append("| " + " | ".join(cell(x) for x in [s["part"], s["scene"], f"`{s['id']}`", tcs, s["purpose"], s["character"], s["location"], s["camera"], s["light"], s["audio"], s["prompt"], "<br>".join(s["assets"]), s["status"]]) + " |")
 
     lines += ["", "## Image prompts (Identität + Kernmerkmale + Kleidung + Pose + Kamera + Hintergrund)", ""]
     for asset in LIB["assets"]:
         parts = full_prompt(asset)
         lines.append(f"### `{asset}`")
-        if LIB["assets"][asset].get("refs"):
-            lines.append(f"*Reference image:* `{LIB['assets'][asset]['refs'][0]}`  ")
+        refs = LIB["assets"][asset].get("refs")
+        if refs:
+            lines.append("*Reference images:* " + ", ".join(f"`{r}`" for r in refs) + "  ")
+        if LIB["assets"][asset].get("_note"):
+            lines.append(f"*Note:* {LIB['assets'][asset]['_note']}  ")
         for label, text in parts:
             lines.append(f"- **{label}:** {text}")
         lines.append(f"- **Stil (konstant):** {LIB['blocks']['style']['anime']}")
