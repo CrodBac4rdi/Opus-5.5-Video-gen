@@ -1,0 +1,7 @@
+node_modules/
+.remotion/
+out/
+renders/_tmp/
+*.log
+__pycache__/
+.DS_Store
