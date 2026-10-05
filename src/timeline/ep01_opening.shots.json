@@ -10,14 +10,16 @@
       "scene": "S00 Kalt-Start",
       "from": 0,
       "dur": 90,
-      "purpose": "Hook in 3 s: Kaelans Tod in unserer Welt (EKG -> Nulllinie) und das System, das eine 'neue Seele' nach Aethelgard uebertraegt.",
+      "purpose": "Hook in 3 s: Kaelans Tod in unserer Welt (EKG -> Nulllinie) und das System, das eine 'neue Seele' nach Aethelgard überträgt.",
       "character": "- (nur System)",
       "location": "Schwarz / System-Raum",
       "camera": "Statisch, Screen-Space-Grafik; Glitch-Jitter",
-      "light": "Schwarz, EKG-Gruen -> Warn-Rot, System-Cyan; Weissblende am Ende",
+      "light": "Schwarz, EKG-Grün -> Warn-Rot, System-Cyan; Weißblende am Ende",
       "audio": "sfx_heartbeat, sfx_riser_whiteout, sfx_flatline, sfx_glitch",
       "prompt": "Code-only (keine KI-Generierung)",
-      "assets": ["code: hud/ECG, GlitchText, Typewriter, Flash"],
+      "assets": [
+        "code: hud/ECG, GlitchText, Typewriter, Flash"
+      ],
       "status": "DONE (code)"
     },
     {
@@ -25,14 +27,17 @@
       "scene": "S01 Erwachen",
       "from": 90,
       "dur": 90,
-      "purpose": "Kaelan oeffnet die Augen in einer fremden Welt; Weltaufbau (schwebende Inseln, Wasserfaelle).",
-      "character": "Kaelan (neuer Koerper)",
+      "purpose": "Kaelan öffnet die Augen in einer fremden Welt; Weltaufbau (schwebende Inseln, Wasserfälle).",
+      "character": "Kaelan (neuer Körper)",
       "location": "Morgenwiese von Aethelgard",
-      "camera": "Living Diorama: Pull-back aus Nah auf Gesicht (Zoom 1.75 -> 1.18) + Roll -5 -> 0 Grad; POV-Lidschlag",
-      "light": "Ueberbelichtet + Unschaerfe -> klar; Sonnenstrahlen von oben links; Bloom",
+      "camera": "POV: Lider öffnen sich auf den Himmel (Zoom 1.6, Roll -4°), Lidschlag, dann Kamerafahrt hinunter zu Kaelan im Gras (Zoom 1.16)",
+      "light": "Überbelichtet + Unschärfe -> klar; Sonnenstrahlen von oben links; Bloom",
       "audio": "sfx_whiteout_hit, amb_meadow_wind, mus_pad_awakening",
       "prompt": "S01_SH01_awakening_topdown (+ CHAR_Kaelan_ref)",
-      "assets": ["S01_SH01_awakening_topdown_v01_final", "code: Eyelids, ParticleField petals/motes, LightRays"],
+      "assets": [
+        "S01_SH01_awakening_topdown_v01_final",
+        "code: Eyelids, ParticleField petals/motes, LightRays"
+      ],
       "status": "DONE"
     },
     {
@@ -40,14 +45,17 @@
       "scene": "S01 Erwachen",
       "from": 180,
       "dur": 90,
-      "purpose": "Spiegelbild in der Pfuetze: das fremde Gesicht (silbernes Haar, eisblaue Augen) - Identitaetsbruch.",
+      "purpose": "Spiegelbild in der Pfütze: das fremde Gesicht (silbernes Haar, eisblaue Augen) - Identitätsbruch.",
       "character": "Kaelan",
-      "location": "Regenpfuetze auf der Wiese",
+      "location": "Regenpfütze auf der Wiese",
       "camera": "Push-in auf das Gesicht (1.18 -> 1.42); Wasser-Displacement beruhigt sich nach Tropfen",
-      "light": "Kuehle Wasser-Toenung, Himmels-Glanz, starke Vignette (Pfuetzenrand)",
+      "light": "Kuehle Wasser-Tönung, Himmels-Glanz, starke Vignette (Pfützenrand)",
       "audio": "sfx_water_drop, amb_meadow_wind, mus_pad_awakening",
       "prompt": "S01_SH02_puddle_reflection v02 (worm's-eye = Spiegelbild-Ansicht)",
-      "assets": ["S01_SH02_puddle_reflection_v02_final", "code: WaterFilter, RippleRings, petals, Caption"],
+      "assets": [
+        "S01_SH02_puddle_reflection_v02_final",
+        "code: WaterFilter, RippleRings, petals, Caption"
+      ],
       "status": "DONE (v01 rejected)"
     },
     {
@@ -62,7 +70,11 @@
       "light": "Warmes Gegenlicht, kaltes Cyan vom Interface, flackernd",
       "audio": "sfx_ui_open, sfx_ui_typing, sfx_ui_warning",
       "prompt": "S01_SH03_system_glow (+ CHAR_Kaelan_ref)",
-      "assets": ["S01_SH03_system_glow_v01_final", "UI_Kaelan_portrait_v01_final", "code: SystemWindow, Typewriter, StatBar, Tag"],
+      "assets": [
+        "S01_SH03_system_glow_v01_final",
+        "UI_Kaelan_portrait_v01_final",
+        "code: SystemWindow, Typewriter, StatBar, Tag"
+      ],
       "status": "DONE"
     },
     {
@@ -72,12 +84,16 @@
       "dur": 84,
       "purpose": "Bedrohung: Ein Schattenwiesel materialisiert sich aus Schatten - zuerst nur rote Augen.",
       "character": "Schattenwiesel",
-      "location": "Lichtung, Bodenhoehe",
+      "location": "Lichtung, Bodenhöhe",
       "camera": "Low-Dolly-in (1.08 -> 1.28) mit Gras-Vordergrund-Parallaxe",
-      "light": "Morgenlicht kippt kuehl-violett; rote Augen-Glows",
+      "light": "Morgenlicht kippt kühl-violett; rote Augen-Glows",
       "audio": "mus_tension_pulse, sfx_shadow_materialize, sfx_growl",
       "prompt": "ENV_meadow_groundlevel + CREA_ShadowWeasel_sprite (gekeyed)",
-      "assets": ["ENV_meadow_groundlevel_v01_final", "CREA_ShadowWeasel_sprite_v01_final", "code: GrassForeground, smoke ParticleField, Glow"],
+      "assets": [
+        "ENV_meadow_groundlevel_v01_final",
+        "CREA_ShadowWeasel_sprite_v01_final",
+        "code: GrassForeground, smoke ParticleField, Glow"
+      ],
       "status": "DONE"
     },
     {
@@ -92,37 +108,44 @@
       "light": "Roter Alarm-Puls in der Vignette, roter Rim-Glow",
       "audio": "sfx_alarm_aggro, sfx_growl, sfx_scan",
       "prompt": "ENV_meadow_groundlevel + CREA_ShadowWeasel_sprite",
-      "assets": ["code: TargetLock, Tag, StatBar, WeakPoint"],
+      "assets": [
+        "code: TargetLock, Tag, StatBar, WeakPoint"
+      ],
       "status": "DONE"
     },
     {
       "id": "S03_SH01_throw_diorama",
-      "scene": "S03 Wurf & Data-Aufloesung",
+      "scene": "S03 Wurf & Data-Auflösung",
       "from": 549,
       "dur": 54,
-      "purpose": "Kaelan wirft den Stein - eingefrorener Moment (Living Diorama), Stein haengt in der Luft.",
+      "purpose": "Kaelan wirft den Stein - eingefrorener Moment (Living Diorama), Stein hängt in der Luft.",
       "character": "Kaelan",
       "location": "Wiese, Gegenlicht",
       "camera": "Snap-Zoom 1.04 -> 1.16 + Dutch-Roll, Shake; Fokus-Speedlines auf die Hand",
       "light": "Sonnen-Flare hinter Kaelan, Bloom, Glint auf dem Stein",
       "audio": "sfx_throw_whoosh",
       "prompt": "S03_SH01_throw_action (+ CHAR_Kaelan_ref)",
-      "assets": ["S03_SH01_throw_action_v01_final", "code: SpeedLines, petal streaks, Glow"],
+      "assets": [
+        "S03_SH01_throw_action_v01_final",
+        "code: SpeedLines, petal streaks, Glow"
+      ],
       "status": "DONE"
     },
     {
       "id": "S03_SH02_strike_data_dissolve",
-      "scene": "S03 Wurf & Data-Aufloesung",
+      "scene": "S03 Wurf & Data-Auflösung",
       "from": 603,
       "dur": 156,
-      "purpose": "Treffer auf den Schwachpunkt: Impact-Frames, Funken, Bodenrisse - dann zerfaellt das Wiesel in Datenpartikel. Kein Blut.",
+      "purpose": "Treffer auf den Schwachpunkt: Impact-Frames, Funken, Bodenrisse - dann zerfällt das Wiesel in Datenpartikel. Kein Blut.",
       "character": "Schattenwiesel",
       "location": "Lichtung (Nah)",
       "camera": "Zoom 1.9 -> 2.15, starker Impact-Shake mit Roll",
-      "light": "Weissblitz, invertierte Impact-Frames, Cyan/Violett-Datenglow",
+      "light": "Weißblitz, invertierte Impact-Frames, Cyan/Violett-Datenglow",
       "audio": "sfx_throw_whoosh, sfx_impact_crit, sfx_data_shatter, sfx_ui_open",
       "prompt": "ENV_meadow_groundlevel + CREA_ShadowWeasel_sprite",
-      "assets": ["code: Stone, DataDissolve, Burst sparks/shards/dust, Shockwave, GroundCracks, FloatText, SystemWindow"],
+      "assets": [
+        "code: Stone, DataDissolve, Burst sparks/shards/dust, Shockwave, GroundCracks, FloatText, SystemWindow"
+      ],
       "status": "DONE"
     },
     {
@@ -130,14 +153,17 @@
       "scene": "S04 Skill freigeschaltet",
       "from": 759,
       "dur": 114,
-      "purpose": "Die Datenpartikel fliessen in Kaelans Hand: [Skill freigeschaltet: Analyse].",
+      "purpose": "Die Datenpartikel fließen in Kaelans Hand: [Skill freigeschaltet: Analyse].",
       "character": "Kaelan",
-      "location": "Huegelkuppe, Monolith am Horizont",
-      "camera": "Kran-Pull-back (1.32 -> 1.08), Pitch 2 -> 0 Grad",
+      "location": "Hügelkuppe, Monolith am Horizont",
+      "camera": "Pull-back (1.32 -> 1.06), Fokus oben gepinnt (Kopf im Bild), Pitch 2 -> 0°",
       "light": "Goldenes Gegenlicht + Sonnenstrahlen, Cyan-Glow in der Hand, Augen-Glint",
       "audio": "mus_triumph_pad, sfx_skill_unlock",
       "prompt": "S04_SH01_hero_analyse (+ CHAR_Kaelan_ref)",
-      "assets": ["S04_SH01_hero_analyse_v01_final", "code: ParticleField attract, Shockwave, SystemWindow gold, LightRays"],
+      "assets": [
+        "S04_SH01_hero_analyse_v01_final",
+        "code: ParticleField attract, Shockwave, SystemWindow gold, LightRays"
+      ],
       "status": "DONE"
     },
     {
@@ -149,10 +175,12 @@
       "character": "- (Monolith)",
       "location": "Horizont",
       "camera": "Snap-Zoom auf den Monolithen (1.6 -> 2.3), Glitch-Jitter",
-      "light": "Violette Korruptions-Toenung, Scanlinie",
+      "light": "Violette Korruptions-Tönung, Scanlinie",
       "audio": "sfx_scan, sfx_glitch",
       "prompt": "S04_SH01_hero_analyse (Ausschnitt)",
-      "assets": ["code: SystemWindow corrupt, GlitchText"],
+      "assets": [
+        "code: SystemWindow corrupt, GlitchText"
+      ],
       "status": "DONE"
     },
     {
@@ -167,7 +195,9 @@
       "light": "Gold auf Schwarz, Glut-Partikel",
       "audio": "sfx_braam_title",
       "prompt": "Code-only",
-      "assets": ["code: TitleCard"],
+      "assets": [
+        "code: TitleCard"
+      ],
       "status": "DONE (code)"
     }
   ]

@@ -18,8 +18,10 @@ export const S01SH01Awakening: React.FC = () => {
     <AbsoluteFill style={{ background: '#000' }}>
       <DioramaCamera
         keys={[
-          { f: 0, x: 0.73, y: 0.27, zoom: 1.75, rot: -5 },
-          { f: 90, x: 0.6, y: 0.43, zoom: 1.17, rot: 0, ease: EASE.inOut },
+          // POV: eyes open on the sky (floating islands), then the camera drifts down to reveal him
+          { f: 0, x: 0.2, y: 0.26, zoom: 1.6, rot: -4 },
+          { f: 34, x: 0.27, y: 0.3, zoom: 1.5, rot: -2.5, ease: EASE.linear },
+          { f: 90, x: 0.63, y: 0.42, zoom: 1.16, rot: 0, ease: EASE.inOut },
         ]}
       >
         <Layer depth={1} clampOv={PLATE_OVERSCAN}>

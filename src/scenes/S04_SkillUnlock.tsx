@@ -46,8 +46,9 @@ export const S04SH01Skill: React.FC = () => {
     <AbsoluteFill style={{ background: '#000' }}>
       <DioramaCamera
         keys={[
-          { f: 0, x: 0.48, y: 0.6, zoom: 1.34, pitch: 2.5 },
-          { f: 114, x: 0.5, y: 0.5, zoom: 1.08, pitch: 0, ease: EASE.inOut },
+          // his head sits at the very top of the plate: keep focus pinned high (the clamp holds the edge)
+          { f: 0, x: 0.42, y: 0.3, zoom: 1.32, pitch: 2 },
+          { f: 114, x: 0.5, y: 0.3, zoom: 1.06, pitch: 0, ease: EASE.inOut },
         ]}
       >
         <Layer depth={1} clampOv={PLATE_OVERSCAN}>
@@ -69,7 +70,7 @@ export const S04SH01Skill: React.FC = () => {
         </Layer>
         <HandFX />
       </DioramaCamera>
-      <SystemWindow x={1060} y={150} w={740} at={40} variant="gold" title="SKILL FREIGESCHALTET">
+      <SystemWindow x={1175} y={150} w={690} at={40} variant="gold" title="SKILL FREIGESCHALTET">
         <div style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
           <EyeIcon size={110} color={HUD.gold} />
           <div>
