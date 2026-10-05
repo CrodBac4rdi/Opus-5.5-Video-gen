@@ -2,11 +2,12 @@
 """Procedural sound placeholders for the EP01 opening (no external audio sources).
 
 Every cue is synthesised with numpy/scipy (oscillators, filtered noise, simple
-convolution reverb) and written to public/sfx/<NAME>.wav (48 kHz, stereo, 16 bit).
+convolution reverb) and written to public/sfx/<NAME>.ogg (48 kHz stereo, Vorbis q6).
 They are deliberately placeholders: the cue names and timings in
 src/timeline/ep01_opening.ts are the contract a sound designer replaces 1:1.
 """
 import pathlib
+import subprocess
 import wave
 
 import numpy as np
@@ -137,9 +138,13 @@ def write(name, x, peak_db=-1.0):
     pk = np.max(np.abs(x)) + 1e-9
     x = x / pk * 10 ** (peak_db / 20)
     OUT.mkdir(parents=True, exist_ok=True)
-    with wave.open(str(OUT / f"{name}.wav"), "wb") as w:
+    tmp = OUT / f"{name}.tmp.wav"
+    with wave.open(str(tmp), "wb") as w:
         w.setnchannels(2); w.setsampwidth(2); w.setframerate(SR)
         w.writeframes((np.clip(x, -1, 1) * 32767).astype("<i2").tobytes())
+    # Ogg Vorbis q6: sample-accurate length (no MP3 priming offset), ~1/10 of WAV size
+    subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(tmp), "-c:a", "libvorbis", "-q:a", "6", str(OUT / f"{name}.ogg")], check=True)
+    tmp.unlink()
     print(f"{name:28s} {len(x) / SR:5.2f}s")
 
 
@@ -367,6 +372,201 @@ def tension_pulse(dur=6.5, bpm=132):
     return reverb(out, 1.3, 0.2)
 
 
+# ---------------------------------------------------------------- v03 cues
+def forest_ambience(dur=32.0):
+    n = int(dur * SR)
+    tt = t(dur)
+    leaves_l = bp(pink(n), 700, 3500) * (0.5 + 0.5 * np.sin(2 * np.pi * tt / 6.1) ** 2)
+    leaves_r = bp(pink(n), 700, 3500) * (0.5 + 0.5 * np.sin(2 * np.pi * tt / 4.7 + 1) ** 2)
+    out = np.stack([leaves_l, leaves_r], 1) * 0.12
+    at = 0.5
+    while at < dur - 1.5:
+        # short melodic songbird phrases
+        pan = rng.uniform(0.1, 0.9)
+        base = rng.uniform(2200, 3600)
+        for k in range(rng.integers(3, 7)):
+            ln = rng.uniform(0.05, 0.11)
+            tc = t(ln)
+            f0 = base * rng.choice([1.0, 1.12, 1.26, 1.5])
+            note = osc(f0 + 400 * np.sin(2 * np.pi * 30 * tc), ln) * np.sin(np.pi * tc / ln) ** 2
+            place(out, np.stack([note * (1 - pan), note * pan], 1) * 0.08, at + k * (ln + 0.04))
+        at += rng.uniform(1.5, 4.0)
+    return reverb(out, 1.8, 0.3)
+
+
+def rustle(dur=1.4):
+    n = int(dur * SR)
+    x = np.zeros(n)
+    pos = 0
+    while pos < n:
+        ln = int(rng.uniform(0.03, 0.12) * SR)
+        seg = bp(noise(ln), 1800, 7000) * np.hanning(ln) * rng.uniform(0.3, 1)
+        x[pos:pos + ln] += seg[: max(0, min(ln, n - pos))]
+        pos += int(ln * rng.uniform(0.4, 1.1))
+    return reverb(stereo(x * env(n, 0.05, 0.2, 0.8, 0.4, dur - 0.65), 0.6), 0.8, 0.2)
+
+
+def weasel_squeak():
+    out = np.zeros((int(0.9 * SR), 2))
+    for at, f0 in [(0.0, 1900), (0.22, 2300)]:
+        tt = t(0.14)
+        x = osc(f0 + 700 * (tt / 0.14) + 120 * np.sin(2 * np.pi * 40 * tt), 0.14) * np.sin(np.pi * tt / 0.14) ** 1.5
+        place(out, x * 0.5, at)
+    return reverb(out, 0.7, 0.2)
+
+
+def player_hit():
+    tt = t(1.4)
+    thump = osc(80 * np.exp(-tt * 8) + 40, 1.4) * np.exp(-tt * 7)
+    rip = hp(noise(len(tt)), 2500) * np.exp(-tt * 18) * 0.6
+    ring = osc(1800, 1.4) * np.exp(-tt * 3) * 0.06 + osc(2400, 1.4) * np.exp(-tt * 3.5) * 0.04
+    return reverb(np.tanh((thump + rip + ring) * 1.4), 1.2, 0.25)
+
+
+def grab():
+    tt = t(0.45)
+    scrape = bp(noise(len(tt)), 400, 3000) * np.exp(-tt * 9)
+    click = hp(noise(len(tt)), 3000) * np.exp(-tt * 80)
+    return reverb(scrape * 0.7 + click * 0.5, 0.5, 0.15)
+
+
+def scream_sting():
+    tt = t(2.4)
+    cluster = sum(osc(f * d, 2.4, "saw") for f in (311.13, 329.63, 466.16, 493.88) for d in (0.996, 1.004))
+    x = sweep_lp(cluster, 3000, 600, 48) * env(len(tt), 0.01, 0.3, 0.4, 1.4, 0.6) * 0.12
+    swell = sweep_lp(noise(len(tt)), 200, 5000) * np.linspace(1, 0, len(tt)) ** 3 * 0.15
+    return reverb(stereo(x + swell, 0.7, 11), 2.0, 0.35)
+
+
+def goblin_cackle(dur=1.5):
+    tt = t(dur)
+    f0 = 210 + 40 * np.sin(2 * np.pi * 0.7 * tt) + 25 * np.sign(np.sin(2 * np.pi * 6 * tt))
+    src = osc(f0, dur, "saw")
+    voice = bp(src, 500, 900) * 1.0 + bp(src, 1100, 1500) * 0.6 + bp(src, 2300, 2900) * 0.25
+    gate = np.clip(np.sin(2 * np.pi * 6.2 * tt), 0, 1) ** 0.6
+    x = np.tanh(voice * gate * 3) * env(len(tt), 0.02, 0.2, 0.9, 0.3, dur - 0.55)
+    return reverb(stereo(x * 0.6, 0.4), 0.9, 0.2)
+
+
+def choice_open():
+    out = np.zeros((int(2.0 * SR), 2))
+    place(out, sweep_lp(noise(int(0.3 * SR)), 300, 5000) * np.linspace(0, 1, int(0.3 * SR)) ** 2 * 0.2, 0.0)
+    for at, f, a in [(0.25, 659.25, 0.5), (0.33, 987.77, 0.4), (0.41, 1318.5, 0.3)]:
+        place(out, bell(f, 1.5, 0.8, 2.0, 1.0) * a, at)
+    return reverb(out, 1.8, 0.3)
+
+
+def choice_select():
+    out = np.zeros((int(1.2 * SR), 2))
+    place(out, hp(noise(400), 2500) * expdecay(400, 0.002) * 0.6, 0.0)
+    place(out, bell(1567.98, 1.0, 0.6, 2.0, 1.2) * 0.5, 0.01)
+    place(out, bell(2093.0, 1.0, 0.5, 2.0, 1.0) * 0.35, 0.06)
+    return reverb(out, 1.2, 0.25)
+
+
+def bonk():
+    tt = t(0.6)
+    x = osc(320 * np.exp(-tt * 10) + 160, 0.6) * np.exp(-tt * 14) + hp(noise(len(tt)), 1500) * np.exp(-tt * 70) * 0.8
+    return reverb(x, 0.6, 0.15)
+
+
+def spear_thrust():
+    tt = t(1.1)
+    whoosh = sweep_lp(bp(noise(len(tt)), 500, 8000), 1200, 9000, 32) * np.sin(np.pi * np.clip(tt / 0.35, 0, 1)) * (tt < 0.35)
+    shing = sum(np.sin(2 * np.pi * f * tt) * np.exp(-tt * d) for f, d in [(3520, 4), (5280, 5), (7040, 6)]) * 0.12 * (tt > 0.18)
+    return reverb(stereo(whoosh * 0.7 + shing, 0.5), 1.0, 0.25)
+
+
+def club_whoosh():
+    tt = t(0.9)
+    x = sweep_lp(bp(noise(len(tt)), 80, 2000), 300, 2500, 32) * np.sin(np.pi * np.clip(tt / 0.7, 0, 1)) ** 1.2
+    l = x * np.linspace(0.3, 1, len(x)); r = x * np.linspace(1, 0.3, len(x))
+    return reverb(np.stack([l, r], 1), 0.8, 0.2)
+
+
+def levelup():
+    out = np.zeros((int(4.0 * SR), 2))
+    for i, f in enumerate([261.63, 329.63, 392.0, 523.25]):
+        tt = t(0.5 if i < 3 else 2.4)
+        stab = sum(osc(f * d, len(tt) / SR, "saw") for d in (0.995, 1.0, 1.005))
+        stab = lp(stab, 3500) * env(len(tt), 0.01, 0.15, 0.6, 0.3 if i < 3 else 1.6, 0.05 if i < 3 else 0.5) * 0.12
+        place(out, stereo(stab, 0.6, 9), i * 0.14)
+    for i, f in enumerate([1046.5, 1318.5, 1567.98, 2093.0]):
+        place(out, bell(f, 1.6, 0.9, 2.0, 1.0) * 0.18, 0.42 + i * 0.06)
+    sh = hp(noise(int(2.5 * SR)), 7000) * env(int(2.5 * SR), 0.2, 0.5, 0.3, 1.5, 0.3) * 0.05
+    place(out, sh, 0.42)
+    return reverb(out, 2.2, 0.3)
+
+
+def quest_chime():
+    out = np.zeros((int(2.2 * SR), 2))
+    for at, f in [(0.0, 783.99), (0.12, 1174.66), (0.24, 1567.98)]:
+        place(out, bell(f, 1.6, 0.9, 3.0, 0.8) * 0.4, at)
+    return reverb(out, 2.0, 0.35)
+
+
+def wolf_howl():
+    tt = t(3.4)
+    f = 300 + 230 * np.sin(np.pi * np.clip(tt / 1.2, 0, 1) * 0.5) - 80 * np.clip((tt - 1.8) / 1.6, 0, 1)
+    f = f + 6 * np.sin(2 * np.pi * 5.5 * tt)
+    src = osc(f, 3.4) + 0.3 * osc(2 * f, 3.4) + 0.08 * noise(len(tt))
+    x = bp(src, 250, 1400) * env(len(tt), 0.35, 0.4, 0.8, 1.2, 1.4)
+    x = lp(x, 2200)
+    return reverb(stereo(x * 0.5, 0.5, 17), 3.5, 0.6, predelay=0.04, bright=4000)
+
+
+def plucks(notes, step, dur, amp=0.25):
+    out = np.zeros((int((dur + 2) * SR), 2))
+    for i in range(int(dur / step)):
+        f = notes[i % len(notes)]
+        place(out, bell(f, 0.9, 0.35, 1.0, 0.6) * amp * (0.8 + 0.2 * rng.random()), i * step)
+    return out
+
+
+def curious_pad():
+    seq = [523.25, 659.25, 783.99, 659.25, 587.33, 783.99, 880.0, 783.99]
+    p = plucks(seq, 0.3, 12.0, 0.18)
+    bed = pad([(261.63, 329.63, 392.0), (293.66, 369.99, 440.0), (261.63, 329.63, 392.0), (246.94, 329.63, 392.0)], 3.0, bright=1600, amp=0.04)
+    n = max(len(p), len(bed))
+    return np.pad(p, ((0, n - len(p)), (0, 0))) + np.pad(bed, ((0, n - len(bed)), (0, 0)))
+
+
+def mystery_pad():
+    tt = t(16.0)
+    drone = (osc(55.0, 16.0, "saw") + osc(55.3, 16.0, "saw")) * 0.05
+    drone = sweep_lp(drone, 200, 900, 64)
+    cl = pad([(220.0, 233.08, 329.63), (207.65, 220.0, 311.13), (220.0, 233.08, 349.23), (196.0, 207.65, 293.66)], 3.8, bright=1200, amp=0.06)
+    n = max(len(cl), len(tt))
+    return np.pad(stereo(drone, 0.6), ((0, n - len(tt)), (0, 0))) + np.pad(cl, ((0, n - len(cl)), (0, 0)))
+
+
+def battle_drums(dur=30.0, bpm=138):
+    out = np.zeros((int((dur + 2) * SR), 2))
+    beat = 60 / bpm
+    pattern = [1, 0, 0.6, 0, 1, 0.5, 0.7, 0]
+    for i in range(int(dur / (beat / 2))):
+        a = pattern[i % len(pattern)]
+        at = i * beat / 2
+        if a:
+            tt = t(0.5)
+            taiko = osc(70 * np.exp(-tt * 9) + 45, 0.5) * np.exp(-tt * 9) + lp(noise(len(tt)), 900) * np.exp(-tt * 25) * 0.4
+            place(out, taiko * a * 0.6, at)
+        if i % 4 == 2:
+            place(out, hp(noise(1500), 5000) * expdecay(1500, 0.01) * 0.12, at)
+    ost = tension_pulse(dur, bpm)
+    n = min(len(out), len(ost))
+    out[:n] += ost[:n] * 0.5
+    return reverb(out, 1.4, 0.2)
+
+
+def adventure_pad():
+    bed = pad([(261.63, 329.63, 392.0, 523.25), (196.0, 246.94, 293.66, 392.0), (220.0, 261.63, 329.63, 440.0), (174.61, 220.0, 261.63, 349.23),
+               (261.63, 329.63, 392.0, 523.25)], 3.6, bright=2600, amp=0.06)
+    arp = plucks([523.25, 659.25, 783.99, 1046.5, 783.99, 659.25], 0.25, 17.0, 0.1)
+    n = max(len(bed), len(arp))
+    return np.pad(bed, ((0, n - len(bed)), (0, 0))) + np.pad(arp, ((0, n - len(arp)), (0, 0)))
+
+
 def main():
     write("sfx_heartbeat", heartbeat())
     write("sfx_flatline", flatline(), -6)
@@ -387,11 +587,31 @@ def main():
     write("sfx_skill_unlock", skill_unlock(), -2)
     write("sfx_scan", scan(), -5)
     write("sfx_braam_title", braam(), -1)
-    write("mus_pad_awakening", pad([(220.0, 261.63, 329.63, 493.88), (174.61, 220.0, 261.63, 392.0),
-                                    (196.0, 246.94, 293.66, 440.0), (220.0, 261.63, 329.63, 493.88)], 3.2), -6)
-    write("mus_tension_pulse", tension_pulse(), -4)
+    awakening = [(220.0, 261.63, 329.63, 493.88), (174.61, 220.0, 261.63, 392.0), (196.0, 246.94, 293.66, 440.0), (220.0, 261.63, 329.63, 493.88)]
+    write("mus_pad_awakening", pad(awakening * 4, 3.3), -6)
+    write("mus_tension_pulse", tension_pulse(16.0), -4)
     write("mus_triumph_pad", pad([(130.81, 196.0, 261.63, 329.63, 392.0), (174.61, 220.0, 261.63, 349.23, 440.0),
                                   (196.0, 246.94, 293.66, 392.0, 493.88)], 2.6, bright=3200, amp=0.07), -5)
+    # v03 cues
+    write("amb_forest", forest_ambience(), -7)
+    write("sfx_rustle", rustle(), -4)
+    write("sfx_weasel_squeak", weasel_squeak(), -4)
+    write("sfx_player_hit", player_hit(), -1)
+    write("sfx_grab", grab(), -4)
+    write("sfx_scream_sting", scream_sting(), -3)
+    write("sfx_goblin_cackle", goblin_cackle(), -3)
+    write("sfx_choice_open", choice_open(), -2)
+    write("sfx_choice_select", choice_select(), -2)
+    write("sfx_bonk", bonk(), -2)
+    write("sfx_spear_thrust", spear_thrust(), -2)
+    write("sfx_club_whoosh", club_whoosh(), -2)
+    write("sfx_levelup", levelup(), -2)
+    write("sfx_quest", quest_chime(), -3)
+    write("sfx_wolf_howl", wolf_howl(), -3)
+    write("mus_curious_pad", curious_pad(), -6)
+    write("mus_mystery_pad", mystery_pad(), -5)
+    write("mus_battle_drums", battle_drums(), -3)
+    write("mus_adventure_pad", adventure_pad(), -5)
 
 
 if __name__ == "__main__":

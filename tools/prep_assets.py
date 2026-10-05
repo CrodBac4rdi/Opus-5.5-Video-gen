@@ -2,20 +2,26 @@
 """Turns approved raw generations (production/raw/*_final.png) into render-ready
 assets in public/assets/EP01/:
 
-  * plates  -> 2x Lanczos upscale + light unsharp mask (JPEG q92)
+  * plates  -> every approved non-CHAR/CREA image: baked-in letterbox bars are
+               detected and cropped (then re-cropped to the original aspect),
+               2x Lanczos upscale + light unsharp mask (JPEG q92)
   * bloom   -> pre-baked highlight bloom layer per plate (screen-blended in Remotion,
                far cheaper than live CSS blur on a 2.7K plate)
-  * sprites -> background key (flood fill from the border, soft alpha band,
-               colour decontamination against the known background colour),
-               tight crop, 2x upscale (PNG with alpha)
-  * ui      -> small portrait crop of Kaelan for the HUD
+  * sprites -> every approved CREA_* image: background key (flood fill from the
+               border, soft alpha band, colour decontamination against the known
+               background colour), tight crop, 2x upscale (PNG with alpha).
+               Sheets listed in SPLIT are separated into one sprite per character
+               (connected components, left to right -> _A, _B, ...)
+  * ui      -> small portrait crops for the HUD
   * grain   -> tileable film-grain texture
 
-Also writes src/assets/manifest.generated.json with pixel sizes and the
-sprite crop offsets so the Remotion code can place everything exactly.
+Also writes src/assets/manifest.generated.json with pixel sizes, plate crop boxes
+and sprite crop offsets so the Remotion code can place everything exactly using
+coordinates measured on the ORIGINAL raw images.
 """
 import json
 import pathlib
+import re
 
 import numpy as np
 from PIL import Image, ImageFilter
@@ -26,16 +32,35 @@ RAW = ROOT / "production/raw"
 OUT = ROOT / "public/assets/EP01"
 MANIFEST = ROOT / "src/assets/manifest.generated.json"
 SCALE = 2
+SPRITE_BG = (255, 255, 255)
+SPLIT = {"CREA_Goblin_pair_sprite": 2}
 
-PLATES = [
-    "S01_SH01_awakening_topdown_v01_final",
-    "S01_SH02_puddle_reflection_v02_final",
-    "S01_SH03_system_glow_v01_final",
-    "ENV_meadow_groundlevel_v01_final",
-    "S03_SH01_throw_action_v01_final",
-    "S04_SH01_hero_analyse_v01_final",
-]
-SPRITES = {"CREA_ShadowWeasel_sprite_v01_final": (255, 255, 255)}
+
+def approved():
+    return sorted(p.stem for p in RAW.glob("*_final.png"))
+
+
+def base_name(stem):
+    return re.sub(r"_v\d+_final$", "", stem)
+
+
+def letterbox_crop(im):
+    """Detects black bars baked into a generation and crops back to the raw aspect."""
+    a = np.asarray(im.convert("L")).astype(np.float32)
+    rows, cols = a.mean(1), a.mean(0)
+    top = next(i for i, v in enumerate(rows) if v > 12)
+    bot = len(rows) - next(i for i, v in enumerate(rows[::-1]) if v > 12)
+    left = next(i for i, v in enumerate(cols) if v > 12)
+    right = len(cols) - next(i for i, v in enumerate(cols[::-1]) if v > 12)
+    if (top, bot, left, right) == (0, im.height, 0, im.width):
+        return im, (0, 0, im.width, im.height)
+    top, bot = top + 2, bot - 2  # eat the anti-aliased edge of the bar
+    h = bot - top
+    aspect = im.width / im.height
+    w = min(right - left, int(round(h * aspect)))
+    x0 = left + ((right - left) - w) // 2
+    box = (x0, top, x0 + w, bot)
+    return im.crop(box).resize(im.size, Image.LANCZOS), box
 
 
 def upscale(im):
@@ -55,7 +80,7 @@ def bloom(im):
     return Image.fromarray(np.clip(b, 0, 255).astype(np.uint8))
 
 
-def key_sprite(im, bg):
+def key_rgba(im, bg):
     a = np.asarray(im.convert("RGB")).astype(np.float32) / 255.0
     bgc = np.array(bg, np.float32) / 255.0
     dist = np.abs(a - bgc).max(axis=2)
@@ -73,39 +98,71 @@ def key_sprite(im, bg):
     # un-blend the white background out of semi-transparent edge pixels
     al = np.clip(alpha, 1e-3, 1)[..., None]
     rgb = np.clip((a - (1 - al) * bgc) / al, 0, 1)
-    rgba = np.dstack([rgb, alpha])
+    return np.dstack([rgb, alpha])
+
+
+def crop_sprite(rgba, mask=None, pad=6):
+    alpha = rgba[..., 3] if mask is None else rgba[..., 3] * mask
     ys, xs = np.where(alpha > 0.02)
-    pad = 6
-    y0, y1 = max(ys.min() - pad, 0), min(ys.max() + pad, a.shape[0])
-    x0, x1 = max(xs.min() - pad, 0), min(xs.max() + pad, a.shape[1])
-    crop = Image.fromarray((rgba[y0:y1, x0:x1] * 255).astype(np.uint8), "RGBA")
+    y0, y1 = max(ys.min() - pad, 0), min(ys.max() + pad, rgba.shape[0])
+    x0, x1 = max(xs.min() - pad, 0), min(xs.max() + pad, rgba.shape[1])
+    part = rgba[y0:y1, x0:x1].copy()
+    if mask is not None:
+        part[..., 3] *= mask[y0:y1, x0:x1]
+    crop = Image.fromarray((part * 255).astype(np.uint8), "RGBA")
     big = crop.resize((crop.width * SCALE, crop.height * SCALE), Image.LANCZOS)
     return big, (int(x0), int(y0), int(x1), int(y1))
+
+
+def split_masks(rgba, n):
+    """One soft mask per character: connected components of the (dilated) alpha, left to right."""
+    solid = ndimage.binary_dilation(rgba[..., 3] > 0.3, iterations=4)
+    lab, cnt = ndimage.label(solid)
+    sizes = ndimage.sum(solid, lab, range(1, cnt + 1))
+    keep = (np.argsort(sizes)[::-1][:n] + 1).tolist()
+    keep.sort(key=lambda k: np.where(lab == k)[1].mean())
+    return [ndimage.binary_dilation(lab == k, iterations=2).astype(np.float32) for k in keep]
 
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     man = {"scale": SCALE, "plates": {}, "sprites": {}}
-    for name in PLATES:
-        im = Image.open(RAW / f"{name}.png").convert("RGB")
+    for stem in approved():
+        if stem.startswith(("CHAR_", "CREA_")):
+            continue
+        raw = Image.open(RAW / f"{stem}.png").convert("RGB")
+        im, box = letterbox_crop(raw)
         up = upscale(im)
-        up.save(OUT / f"{name}.jpg", quality=92, subsampling=0)
-        bloom(up).save(OUT / f"{name}_bloom.jpg", quality=88)
-        man["plates"][name] = {"file": f"assets/EP01/{name}.jpg", "bloom": f"assets/EP01/{name}_bloom.jpg",
-                               "w": up.width, "h": up.height, "rawW": im.width, "rawH": im.height}
-        print("plate", name, up.size)
-    for name, bg in SPRITES.items():
-        im = Image.open(RAW / f"{name}.png")
-        spr, box = key_sprite(im, bg)
-        spr.save(OUT / f"{name}.png", optimize=True)
-        man["sprites"][name] = {"file": f"assets/EP01/{name}.png", "w": spr.width, "h": spr.height,
-                                "rawBox": box, "rawW": im.width, "rawH": im.height}
-        print("sprite", name, spr.size, "crop", box)
+        up.save(OUT / f"{stem}.jpg", quality=92, subsampling=0)
+        bloom(up).save(OUT / f"{stem}_bloom.jpg", quality=88)
+        man["plates"][stem] = {"file": f"assets/EP01/{stem}.jpg", "bloom": f"assets/EP01/{stem}_bloom.jpg",
+                               "w": up.width, "h": up.height, "rawW": raw.width, "rawH": raw.height, "crop": list(box)}
+        print("plate ", stem, up.size, "crop" if box != (0, 0, raw.width, raw.height) else "", box)
 
-    ref = Image.open(RAW / "CHAR_Kaelan_ref_v01_final.png").convert("RGB")
-    portrait = ref.crop((640, 120, 1100, 580)).resize((320, 320), Image.LANCZOS)
-    portrait.save(OUT / "UI_Kaelan_portrait_v01_final.jpg", quality=92)
-    man["ui"] = {"portrait": "assets/EP01/UI_Kaelan_portrait_v01_final.jpg"}
+    for stem in approved():
+        if not stem.startswith("CREA_"):
+            continue
+        raw = Image.open(RAW / f"{stem}.png")
+        rgba = key_rgba(raw, SPRITE_BG)
+        n = SPLIT.get(base_name(stem))
+        parts = [(stem, None)] if not n else [(f"{stem}_{chr(65 + i)}", m) for i, m in enumerate(split_masks(rgba, n))]
+        for name, mask in parts:
+            spr, box = crop_sprite(rgba, mask)
+            spr.save(OUT / f"{name}.png", optimize=True)
+            man["sprites"][name] = {"file": f"assets/EP01/{name}.png", "w": spr.width, "h": spr.height,
+                                    "rawBox": box, "rawW": raw.width, "rawH": raw.height}
+            print("sprite", name, spr.size, "crop", box)
+
+    man["ui"] = {}
+    for key, (stem, box) in {
+        "portrait": ("CHAR_Kaelan_ref_v01_final", (640, 120, 1100, 580)),
+        "portraitElara": ("CHAR_Elara_ref_v01_final", (560, 60, 1060, 560)),
+    }.items():
+        if (RAW / f"{stem}.png").exists():
+            ref = Image.open(RAW / f"{stem}.png").convert("RGB")
+            out = f"UI_{stem.split('_')[1]}_portrait_v01_final.jpg"
+            ref.crop(box).resize((320, 320), Image.LANCZOS).save(OUT / out, quality=92)
+            man["ui"][key] = f"assets/EP01/{out}"
 
     rng = np.random.default_rng(42)
     g = rng.normal(0.5, 0.18, (512, 512))

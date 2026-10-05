@@ -31,7 +31,7 @@ def full_prompt(asset_id):
             cur = cur[k]
         return cur
 
-    res = lambda v: re.sub(r"@([\w.]+)", lambda m: look(m.group(1)), v)
+    res = lambda v: re.sub(r"@(\w+(?:\.\w+)*)", lambda m: look(m.group(1)), v)
     order = ["identity", "core_traits", "clothing", "pose", "camera", "background"]
     labels = {"identity": "Identität", "core_traits": "Kernmerkmale", "clothing": "Kleidung", "pose": "Pose", "camera": "Kamera", "background": "Hintergrund"}
     return [(labels[k], res(spec[k])) for k in order if spec.get(k)]

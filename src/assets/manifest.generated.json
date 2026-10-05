@@ -1,29 +1,33 @@
 {
   "scale": 2,
   "plates": {
-    "S01_SH01_awakening_topdown_v01_final": {
-      "file": "assets/EP01/S01_SH01_awakening_topdown_v01_final.jpg",
-      "bloom": "assets/EP01/S01_SH01_awakening_topdown_v01_final_bloom.jpg",
+    "ENV_forest_road_nospear_v01_final": {
+      "file": "assets/EP01/ENV_forest_road_nospear_v01_final.jpg",
+      "bloom": "assets/EP01/ENV_forest_road_nospear_v01_final_bloom.jpg",
       "w": 2688,
       "h": 1536,
       "rawW": 1344,
-      "rawH": 768
+      "rawH": 768,
+      "crop": [
+        93,
+        53,
+        1250,
+        714
+      ]
     },
-    "S01_SH02_puddle_reflection_v02_final": {
-      "file": "assets/EP01/S01_SH02_puddle_reflection_v02_final.jpg",
-      "bloom": "assets/EP01/S01_SH02_puddle_reflection_v02_final_bloom.jpg",
+    "ENV_forest_road_v01_final": {
+      "file": "assets/EP01/ENV_forest_road_v01_final.jpg",
+      "bloom": "assets/EP01/ENV_forest_road_v01_final_bloom.jpg",
       "w": 2688,
       "h": 1536,
       "rawW": 1344,
-      "rawH": 768
-    },
-    "S01_SH03_system_glow_v01_final": {
-      "file": "assets/EP01/S01_SH03_system_glow_v01_final.jpg",
-      "bloom": "assets/EP01/S01_SH03_system_glow_v01_final_bloom.jpg",
-      "w": 2688,
-      "h": 1536,
-      "rawW": 1344,
-      "rawH": 768
+      "rawH": 768,
+      "crop": [
+        93,
+        53,
+        1250,
+        714
+      ]
     },
     "ENV_meadow_groundlevel_v01_final": {
       "file": "assets/EP01/ENV_meadow_groundlevel_v01_final.jpg",
@@ -31,7 +35,153 @@
       "w": 2688,
       "h": 1536,
       "rawW": 1344,
-      "rawH": 768
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "ENV_sky_pov_v01_final": {
+      "file": "assets/EP01/ENV_sky_pov_v01_final.jpg",
+      "bloom": "assets/EP01/ENV_sky_pov_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S01_SH01_awakening_topdown_v01_final": {
+      "file": "assets/EP01/S01_SH01_awakening_topdown_v01_final.jpg",
+      "bloom": "assets/EP01/S01_SH01_awakening_topdown_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S01_SH02_puddle_reflection_v02_final": {
+      "file": "assets/EP01/S01_SH02_puddle_reflection_v02_final.jpg",
+      "bloom": "assets/EP01/S01_SH02_puddle_reflection_v02_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S01_SH03_eyes_ecu_v01_final": {
+      "file": "assets/EP01/S01_SH03_eyes_ecu_v01_final.jpg",
+      "bloom": "assets/EP01/S01_SH03_eyes_ecu_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S01_SH03_system_glow_v01_final": {
+      "file": "assets/EP01/S01_SH03_system_glow_v01_final.jpg",
+      "bloom": "assets/EP01/S01_SH03_system_glow_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S01_SH04_hilltop_back_v01_final": {
+      "file": "assets/EP01/S01_SH04_hilltop_back_v01_final.jpg",
+      "bloom": "assets/EP01/S01_SH04_hilltop_back_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S01_SH05_hands_v01_final": {
+      "file": "assets/EP01/S01_SH05_hands_v01_final.jpg",
+      "bloom": "assets/EP01/S01_SH05_hands_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S02_SH02_reach_out_v01_final": {
+      "file": "assets/EP01/S02_SH02_reach_out_v01_final.jpg",
+      "bloom": "assets/EP01/S02_SH02_reach_out_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S02_SH03_weasel_lunge_v01_final": {
+      "file": "assets/EP01/S02_SH03_weasel_lunge_v01_final.jpg",
+      "bloom": "assets/EP01/S02_SH03_weasel_lunge_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S02_SH05_hand_stone_v01_final": {
+      "file": "assets/EP01/S02_SH05_hand_stone_v01_final.jpg",
+      "bloom": "assets/EP01/S02_SH05_hand_stone_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
     },
     "S03_SH01_throw_action_v01_final": {
       "file": "assets/EP01/S03_SH01_throw_action_v01_final.jpg",
@@ -39,7 +189,13 @@
       "w": 2688,
       "h": 1536,
       "rawW": 1344,
-      "rawH": 768
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
     },
     "S04_SH01_hero_analyse_v01_final": {
       "file": "assets/EP01/S04_SH01_hero_analyse_v01_final.jpg",
@@ -47,10 +203,167 @@
       "w": 2688,
       "h": 1536,
       "rawW": 1344,
-      "rawH": 768
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S05_SH01_goblin_tracks_v01_final": {
+      "file": "assets/EP01/S05_SH01_goblin_tracks_v01_final.jpg",
+      "bloom": "assets/EP01/S05_SH01_goblin_tracks_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        65,
+        37,
+        1279,
+        731
+      ]
+    },
+    "S05_SH03_elara_threatened_v01_final": {
+      "file": "assets/EP01/S05_SH03_elara_threatened_v01_final.jpg",
+      "bloom": "assets/EP01/S05_SH03_elara_threatened_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S05_SH04_kaelan_bushes_v01_final": {
+      "file": "assets/EP01/S05_SH04_kaelan_bushes_v01_final.jpg",
+      "bloom": "assets/EP01/S05_SH04_kaelan_bushes_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S06_SH02_spear_thrust_v01_final": {
+      "file": "assets/EP01/S06_SH02_spear_thrust_v01_final.jpg",
+      "bloom": "assets/EP01/S06_SH02_spear_thrust_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S06_SH03_dodge_v02_final": {
+      "file": "assets/EP01/S06_SH03_dodge_v02_final.jpg",
+      "bloom": "assets/EP01/S06_SH03_dodge_v02_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S06_SH04_levelup_v01_final": {
+      "file": "assets/EP01/S06_SH04_levelup_v01_final.jpg",
+      "bloom": "assets/EP01/S06_SH04_levelup_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S07_SH01_elara_thanks_v01_final": {
+      "file": "assets/EP01/S07_SH01_elara_thanks_v01_final.jpg",
+      "bloom": "assets/EP01/S07_SH01_elara_thanks_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
+    },
+    "S07_SH02_walking_together_v01_final": {
+      "file": "assets/EP01/S07_SH02_walking_together_v01_final.jpg",
+      "bloom": "assets/EP01/S07_SH02_walking_together_v01_final_bloom.jpg",
+      "w": 2688,
+      "h": 1536,
+      "rawW": 1344,
+      "rawH": 768,
+      "crop": [
+        0,
+        0,
+        1344,
+        768
+      ]
     }
   },
   "sprites": {
+    "CREA_Goblin_pair_sprite_v01_final_A": {
+      "file": "assets/EP01/CREA_Goblin_pair_sprite_v01_final_A.png",
+      "w": 1126,
+      "h": 1246,
+      "rawBox": [
+        111,
+        76,
+        674,
+        699
+      ],
+      "rawW": 1344,
+      "rawH": 768
+    },
+    "CREA_Goblin_pair_sprite_v01_final_B": {
+      "file": "assets/EP01/CREA_Goblin_pair_sprite_v01_final_B.png",
+      "w": 972,
+      "h": 890,
+      "rawBox": [
+        731,
+        250,
+        1217,
+        695
+      ],
+      "rawW": 1344,
+      "rawH": 768
+    },
+    "CREA_ShadowWeasel_cute_v01_final": {
+      "file": "assets/EP01/CREA_ShadowWeasel_cute_v01_final.png",
+      "w": 1352,
+      "h": 1360,
+      "rawBox": [
+        333,
+        44,
+        1009,
+        724
+      ],
+      "rawW": 1344,
+      "rawH": 768
+    },
     "CREA_ShadowWeasel_sprite_v01_final": {
       "file": "assets/EP01/CREA_ShadowWeasel_sprite_v01_final.png",
       "w": 2476,
@@ -66,7 +379,8 @@
     }
   },
   "ui": {
-    "portrait": "assets/EP01/UI_Kaelan_portrait_v01_final.jpg"
+    "portrait": "assets/EP01/UI_Kaelan_portrait_v01_final.jpg",
+    "portraitElara": "assets/EP01/UI_Elara_portrait_v01_final.jpg"
   },
   "fx": {
     "grain": "assets/EP01/FX_grain_tile.png"

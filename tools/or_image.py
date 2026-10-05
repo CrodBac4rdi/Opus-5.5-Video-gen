@@ -78,12 +78,12 @@ def build_prompt(asset):
 
     def resolve(v):
         # "@kaelan.identity" -> verbatim library block (anti-drift)
-        return re.sub(r"@([\w.]+)", lambda mt: _lookup(blocks, mt.group(1)), v)
+        return re.sub(r"@(\w+(?:\.\w+)*)", lambda mt: _lookup(blocks, mt.group(1)), v)
 
     order = ["identity", "core_traits", "clothing", "pose", "camera", "background"]
     parts = [resolve(spec[k]) for k in order if spec.get(k)]
     if spec.get("refs"):
-        parts.insert(0, blocks["ref_note"])
+        parts.insert(0, blocks["ref_note_multi"] if len(spec["refs"]) > 1 else blocks["ref_note"])
     parts.append(resolve(spec.get("style", "@style.anime")))
     return " ".join(p.strip().rstrip(".") + "." for p in parts), spec
 
@@ -97,7 +97,7 @@ def _lookup(blocks, dotted):
 
 def next_version(asset):
     RAW_DIR.mkdir(parents=True, exist_ok=True)
-    vs = [int(m.group(1)) for f in RAW_DIR.glob(f"{asset}_v*.png") if (m := re.search(r"_v(\d+)(?:_final)?\.png$", f.name))]
+    vs = [int(m.group(1)) for f in [*RAW_DIR.glob(f"{asset}_v*.png"), *RAW_DIR.glob(f"_rejected/{asset}_v*.png")] if (m := re.search(r"_v(\d+)(?:_final)?\.png$", f.name))]
     return max(vs, default=0) + 1
 
 

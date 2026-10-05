@@ -173,8 +173,9 @@ export const TargetLock: React.FC<{
   at: number;
   color?: string;
   rgb?: string;
+  labelPos?: 'top' | 'left';
   children?: React.ReactNode;
-}> = ({ x, y, w, h, at, color = HUD.warn, rgb = HUD.warnRGB, children }) => {
+}> = ({ x, y, w, h, at, color = HUD.warn, rgb = HUD.warnRGB, labelPos = 'top', children }) => {
   const frame = useCurrentFrame();
   if (frame < at) return null;
   const t = ramp(frame, at, at + 10, EASE.snap);
@@ -195,7 +196,11 @@ export const TargetLock: React.FC<{
       {br({ left: bx, top: by + bh - L, borderBottomWidth: 4, borderLeftWidth: 4 })}
       {br({ left: bx + bw - L, top: by + bh - L, borderBottomWidth: 4, borderRightWidth: 4 })}
       <div style={{ position: 'absolute', left: bx, top: by, width: bw, height: bh, border: `1px dashed rgba(${rgb},0.35)` }} />
-      <div style={{ position: 'absolute', left: bx, top: by - 12, transform: 'translateY(-100%)', fontFamily: FONT_HUD }}>{children}</div>
+      {labelPos === 'top' ? (
+        <div style={{ position: 'absolute', left: Math.max(bx, 28), top: Math.max(by - 12, 150), transform: 'translateY(-100%)', fontFamily: FONT_HUD, whiteSpace: 'nowrap' }}>{children}</div>
+      ) : (
+        <div style={{ position: 'absolute', left: bx - 18, top: by + 20, transform: 'translateX(-100%)', fontFamily: FONT_HUD, whiteSpace: 'nowrap', textAlign: 'right' }}>{children}</div>
+      )}
     </div>
   );
 };
@@ -224,7 +229,7 @@ export const WeakPoint: React.FC<{ x: number; y: number; at: number; label?: str
   const ly = y + dirY * 150 * lead;
   const ex = lx + dirX * 120 * lead;
   return (
-    <div style={{ position: 'absolute', left: 0, top: 0, opacity: t }}>
+    <div style={{ position: 'absolute', left: 0, top: 0, width: 1920, height: 1080, opacity: t }}>
       <svg width={1920} height={1080} style={{ position: 'absolute', left: 0, top: 0, overflow: 'visible', filter: `drop-shadow(0 0 6px ${col})` }}>
         <g transform={`translate(${x} ${y})`}>
           <circle r={R} fill="none" stroke={col} strokeWidth={3} strokeDasharray="22 12" transform={`rotate(${rot})`} />

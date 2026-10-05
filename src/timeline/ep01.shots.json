@@ -1,0 +1,303 @@
+{
+  "episode": "EP01",
+  "title": "Das Erwachen",
+  "fps": 30,
+  "width": 1920,
+  "height": 1080,
+  "parts": [
+    { "id": 1, "title": "Das Erwachen", "cliffhanger": "Rote Augen im hohen Gras" },
+    { "id": 2, "title": "Die erste Lektion", "cliffhanger": "[Analyse] erfasst ein neues Ziel am Horizont" },
+    { "id": 3, "title": "Spuren", "cliffhanger": "[Eingreifen?]  JA / NEIN" },
+    { "id": 4, "title": "Erste Begegnung", "cliffhanger": "Neue Quest – und Wolfsgeheul in der Ferne" }
+  ],
+  "shots": [
+    {
+      "id": "S00_SH01_coldopen_flatline", "part": 1, "scene": "S00 Kalt-Start", "dur": 180,
+      "purpose": "Hook: Kaelans Tod in unserer Welt (EKG → Nulllinie), das System überträgt eine 'neue Seele' nach Aethelgard.",
+      "character": "– (System)", "location": "Schwarz / System-Raum",
+      "camera": "Statisch, Screen-Space-Grafik, Glitch-Jitter",
+      "light": "EKG-Grün → Warn-Rot, System-Cyan, Weißblende",
+      "audio": "sfx_heartbeat, sfx_flatline, sfx_glitch, sfx_riser_whiteout",
+      "prompt": "Code-only", "assets": ["code: S00_ColdOpen"], "status": "v03"
+    },
+    {
+      "id": "S01_SH01_pov_sky", "part": 1, "scene": "S01 Erwachen", "dur": 150,
+      "purpose": "POV: Die Augen öffnen sich – ein fremder Himmel mit schwebenden Inseln.",
+      "character": "Kaelan (POV)", "location": "Morgenwiese, Blick nach oben",
+      "camera": "POV, langsamer Drift + Roll, zwei Lidschläge",
+      "light": "Überbelichtet → klar, Sonnen-Flare oben links",
+      "audio": "sfx_whiteout_hit, amb_meadow_wind, mus_pad_awakening",
+      "prompt": "ENV_sky_pov", "assets": ["ENV_sky_pov_v01_final", "code: Eyelids, petals"], "status": "v03"
+    },
+    {
+      "id": "S01_SH02_awakening_meadow", "part": 1, "scene": "S01 Erwachen", "dur": 180,
+      "purpose": "Erster Blick auf Kaelan im neuen Körper, im Gras liegend.",
+      "character": "Kaelan", "location": "Morgenwiese (Hang)",
+      "camera": "Langsamer Pull-back vom Gesicht (1.5 → 1.12), Roll −3 → 0°",
+      "light": "Warmes Morgenlicht, Sonnenstrahlen, Bloom",
+      "audio": "amb_meadow_wind, mus_pad_awakening",
+      "prompt": "S01_SH01_awakening_topdown", "assets": ["S01_SH01_awakening_topdown_v01_final"], "status": "v03"
+    },
+    {
+      "id": "S01_SH03_eyes_ecu", "part": 1, "scene": "S01 Erwachen", "dur": 120,
+      "purpose": "Detail: eisblaue Augen, in denen sich der fremde Himmel spiegelt.",
+      "character": "Kaelan", "location": "Morgenwiese",
+      "camera": "Extreme Nah, minimaler Push-in",
+      "light": "Weiches Licht, Glanzpunkte",
+      "audio": "amb_meadow_wind, mus_pad_awakening",
+      "prompt": "S01_SH03_eyes_ecu", "assets": ["S01_SH03_eyes_ecu_v01_final"], "status": "v03"
+    },
+    {
+      "id": "S01_SH04_hilltop_world", "part": 1, "scene": "S01 Erwachen", "dur": 180,
+      "purpose": "Weltaufbau: Kaelan steht auf, die Weite von Aethelgard.",
+      "character": "Kaelan (klein, von hinten)", "location": "Hügelkuppe, Panorama",
+      "camera": "Langsamer Pull-back / Pan über das Panorama",
+      "light": "Sonnenaufgang, Gegenlicht, Dunst",
+      "audio": "amb_meadow_wind, mus_pad_awakening",
+      "prompt": "S01_SH04_hilltop_back", "assets": ["S01_SH04_hilltop_back_v01_final"], "status": "v03"
+    },
+    {
+      "id": "S01_SH05_hands", "part": 1, "scene": "S01 Erwachen", "dur": 120,
+      "purpose": "Identitätsbruch I: fremde Hände. „Das … ist nicht mein Körper.“",
+      "character": "Kaelan", "location": "Hügelkuppe",
+      "camera": "Nah, leichter Push auf die Hände",
+      "light": "Morgenlicht",
+      "audio": "amb_meadow_wind, mus_pad_awakening",
+      "prompt": "S01_SH05_hands", "assets": ["S01_SH05_hands_v01_final"], "status": "v03"
+    },
+    {
+      "id": "S01_SH06_puddle_reflection", "part": 1, "scene": "S01 Erwachen", "dur": 180,
+      "purpose": "Identitätsbruch II: Spiegelbild in der Pfütze – silbernes Haar, eisblaue Augen.",
+      "character": "Kaelan", "location": "Regenpfütze",
+      "camera": "Push-in auf das Gesicht, Wasser beruhigt sich nach dem Tropfen",
+      "light": "Kühle Wasser-Tönung, Himmels-Glanz, Vignette",
+      "audio": "sfx_water_drop, amb_meadow_wind, mus_pad_awakening",
+      "prompt": "S01_SH02_puddle_reflection v02", "assets": ["S01_SH02_puddle_reflection_v02_final"], "status": "v03"
+    },
+    {
+      "id": "S01_SH07_system_welcome", "part": 1, "scene": "S01 Erwachen", "dur": 330,
+      "purpose": "Das System erscheint: [Willkommen, Spieler.] – dann Statusfenster: KAELAN LVL 1, HP 23/100, VERLETZT.",
+      "character": "Kaelan", "location": "Wiese, Hologramm-Fenster",
+      "camera": "Sehr langsamer Push + 3D-Yaw-Schwenk, UI weltverankert am Licht-Orb",
+      "light": "Warmes Gegenlicht, kaltes Cyan vom Interface",
+      "audio": "sfx_ui_open, sfx_ui_typing, sfx_ui_warning",
+      "prompt": "S01_SH03_system_glow", "assets": ["S01_SH03_system_glow_v01_final", "UI_Kaelan_portrait"], "status": "v03"
+    },
+    {
+      "id": "S01_SH08_red_eyes_tease", "part": 1, "scene": "S01 Erwachen", "dur": 90,
+      "purpose": "Cliffhanger Teil 1: Rascheln im hohen Gras – zwei rote Augen.",
+      "character": "Schattenwiesel (nur Augen)", "location": "Lichtung, Bodenhöhe",
+      "camera": "Langsamer Push in das Gras",
+      "light": "Abgedunkelt, kühl, rote Augen-Glows",
+      "audio": "sfx_rustle, sfx_growl (leise)",
+      "prompt": "ENV_meadow_groundlevel", "assets": ["ENV_meadow_groundlevel_v01_final", "code: GrassForeground, Glow"], "status": "v03"
+    },
+    {
+      "id": "S02_SH01_weasel_cute", "part": 2, "scene": "S02 Die erste Lektion", "dur": 180,
+      "purpose": "Ein harmlos wirkendes Schattenwiesel – das System warnt trotzdem: [AGGRESSIV].",
+      "character": "Schattenwiesel (niedlich)", "location": "Lichtung",
+      "camera": "Langsamer Dolly-in, Gras-Parallaxe",
+      "light": "Morgenlicht",
+      "audio": "sfx_weasel_squeak, sfx_ui_warning",
+      "prompt": "CREA_ShadowWeasel_cute + ENV_meadow_groundlevel", "assets": ["CREA_ShadowWeasel_cute_v01_final", "ENV_meadow_groundlevel_v01_final"], "status": "v03"
+    },
+    {
+      "id": "S02_SH02_reach_out", "part": 2, "scene": "S02 Die erste Lektion", "dur": 150,
+      "purpose": "Kaelan ignoriert die Warnung und streckt die Hand aus. „Ganz ruhig, Kleiner …“",
+      "character": "Kaelan", "location": "Lichtung",
+      "camera": "Langsamer Push, Warn-Tag blinkt im Bild",
+      "light": "Morgenlicht",
+      "audio": "amb_meadow_wind, sfx_ui_warning",
+      "prompt": "S02_SH02_reach_out", "assets": ["S02_SH02_reach_out_v01_final"], "status": "v03"
+    },
+    {
+      "id": "S02_SH03_weasel_lunge", "part": 2, "scene": "S02 Die erste Lektion", "dur": 150,
+      "purpose": "Die Lektion: eingefrorener Sprung des Wiesels, Krallen-Funken, HP 23 → 11 (kein Blut).",
+      "character": "Kaelan, Schattenwiesel", "location": "Lichtung",
+      "camera": "Living Diorama: Snap-Zoom + Dutch, Bullet-Time-Drift, Shake",
+      "light": "Impact-Frames, roter Damage-Rand",
+      "audio": "sfx_impact_crit, sfx_player_hit, sfx_heartbeat",
+      "prompt": "S02_SH03_weasel_lunge (Refs: Kaelan + Wiesel)", "assets": ["S02_SH03_weasel_lunge_v01_final", "code: PlayerDamage, Burst"], "status": "v03"
+    },
+    {
+      "id": "S02_SH04_aggro_weakpoint", "part": 2, "scene": "S02 Die erste Lektion", "dur": 210,
+      "purpose": "Ziel-Lock [AGGRESSIV], LVL 3 – und das System markiert die SCHWACHSTELLE (Stirnkristall).",
+      "character": "Schattenwiesel", "location": "Lichtung (Nah)",
+      "camera": "Langsamer Push, Shake beim Knurren",
+      "light": "Roter Alarm-Puls",
+      "audio": "mus_tension_pulse, sfx_alarm_aggro, sfx_growl, sfx_scan",
+      "prompt": "CREA_ShadowWeasel_sprite + ENV_meadow_groundlevel", "assets": ["code: TargetLock, Tag, WeakPoint"], "status": "v03"
+    },
+    {
+      "id": "S02_SH05_hand_stone", "part": 2, "scene": "S02 Die erste Lektion", "dur": 90,
+      "purpose": "Insert: Kaelans Hand greift einen Stein.",
+      "character": "Kaelan (Hand)", "location": "Gras",
+      "camera": "Extreme Nah, Mikro-Push, Fokus-Speedlines",
+      "light": "Bodennah, kontrastreich",
+      "audio": "sfx_grab",
+      "prompt": "S02_SH05_hand_stone", "assets": ["S02_SH05_hand_stone_v01_final"], "status": "v03"
+    },
+    {
+      "id": "S03_SH01_throw_diorama", "part": 2, "scene": "S03 Wurf & Data-Auflösung", "dur": 120,
+      "purpose": "Der Wurf – eingefrorener Moment, der Stein hängt in der Luft.",
+      "character": "Kaelan", "location": "Wiese, Gegenlicht",
+      "camera": "Snap-Zoom + Dutch-Roll, dann langsamer Bullet-Time-Drift",
+      "light": "Sonnen-Flare, Glint auf dem Stein",
+      "audio": "sfx_throw_whoosh",
+      "prompt": "S03_SH01_throw_action", "assets": ["S03_SH01_throw_action_v01_final"], "status": "v03"
+    },
+    {
+      "id": "S03_SH02_strike_data_dissolve", "part": 2, "scene": "S03 Wurf & Data-Auflösung", "dur": 240,
+      "purpose": "Treffer auf den Stirnkristall: Impact-Frames, Bodenrisse – das Wiesel zerfällt in Datenpartikel.",
+      "character": "Schattenwiesel", "location": "Lichtung (Nah)",
+      "camera": "Zoom 1.9 → 2.2, Impact-Shake",
+      "light": "Weißblitz, Cyan/Violett-Datenglow",
+      "audio": "sfx_impact_crit, sfx_data_shatter, sfx_ui_open",
+      "prompt": "CREA_ShadowWeasel_sprite + ENV_meadow_groundlevel", "assets": ["code: DataDissolve, combat FX"], "status": "v03"
+    },
+    {
+      "id": "S04_SH01_skill_unlock_analyse", "part": 2, "scene": "S04 Analyse", "dur": 240,
+      "purpose": "Die Daten fließen in Kaelans Hand: [Skill freigeschaltet: Analyse]. Cliffhanger: neues Ziel erfasst.",
+      "character": "Kaelan", "location": "Hügelkuppe, Monolith am Horizont",
+      "camera": "Langsamer Pull-back, Kopf im Bild",
+      "light": "Goldenes Gegenlicht, Cyan-Glow, Augen-Glint",
+      "audio": "mus_triumph_pad, sfx_skill_unlock, sfx_scan",
+      "prompt": "S04_SH01_hero_analyse", "assets": ["S04_SH01_hero_analyse_v01_final"], "status": "v03"
+    },
+    {
+      "id": "S04_SH02_monolith_scan", "part": 3, "scene": "S04 Analyse", "dur": 180,
+      "purpose": "Erster Analyse-Scan: [???] Monolith des Echos – LVL ????, KORRUMPIERT, Betreten nicht empfohlen.",
+      "character": "– (Monolith)", "location": "Horizont",
+      "camera": "Snap-Zoom auf den Monolithen, Glitch-Jitter",
+      "light": "Violette Korruptions-Tönung, Scanlinie",
+      "audio": "mus_mystery_pad, sfx_scan, sfx_glitch",
+      "prompt": "S04_SH01_hero_analyse (Ausschnitt)", "assets": ["code: SystemWindow corrupt, GlitchText"], "status": "v03"
+    },
+    {
+      "id": "S04_SH03_resolve", "part": 3, "scene": "S04 Analyse", "dur": 180,
+      "purpose": "Kaelan fasst einen Entschluss: „Erst brauche ich Antworten … und Menschen.“",
+      "character": "Kaelan (von hinten)", "location": "Hügelkuppe",
+      "camera": "Langsamer Push auf Kaelan",
+      "light": "Morgenlicht wird wärmer",
+      "audio": "mus_mystery_pad, amb_meadow_wind",
+      "prompt": "S01_SH04_hilltop_back (zweite Einstellung)", "assets": ["S01_SH04_hilltop_back_v01_final"], "status": "v03"
+    },
+    {
+      "id": "S05_SH01_goblin_tracks", "part": 3, "scene": "S05 Spuren", "dur": 150,
+      "purpose": "Am Waldrand: frische Spuren. [Analyse] → [Goblin-Spuren · frisch · 2 Individuen].",
+      "character": "–", "location": "Waldweg",
+      "camera": "Bodennaher Dolly entlang der Spuren",
+      "light": "Nachmittagslicht durch Blätter",
+      "audio": "amb_forest, sfx_scan",
+      "prompt": "S05_SH01_goblin_tracks", "assets": ["S05_SH01_goblin_tracks_v01_final"], "status": "v03"
+    },
+    {
+      "id": "S05_SH02_road_scream", "part": 3, "scene": "S05 Spuren", "dur": 150,
+      "purpose": "Ein umgestürzter Händlerkarren. Aus dem Off: „Hilfe!“",
+      "character": "– (Elara im Off)", "location": "Waldstraße",
+      "camera": "Langsamer Pan über die Straße",
+      "light": "Warmes Nachmittagslicht",
+      "audio": "amb_forest, sfx_scream_sting",
+      "prompt": "ENV_forest_road", "assets": ["ENV_forest_road_v01_final"], "status": "v03"
+    },
+    {
+      "id": "S05_SH03_elara_threatened", "part": 3, "scene": "S05 Spuren", "dur": 240,
+      "purpose": "Elara (Händlerin, LVL 2) wird von zwei Goblins (LVL 5) bedroht – Analyse-Tags.",
+      "character": "Elara, 2 Goblins", "location": "Waldstraße am Karren",
+      "camera": "Langsamer Push, leichter Yaw",
+      "light": "Nachmittag, Bedrohungs-Tönung",
+      "audio": "mus_tension_pulse, sfx_goblin_cackle",
+      "prompt": "S05_SH03_elara_threatened (Refs: Elara + Goblins)", "assets": ["S05_SH03_elara_threatened_v01_final", "code: TargetLock, Tag"], "status": "v03"
+    },
+    {
+      "id": "S05_SH04_choice", "part": 3, "scene": "S05 Spuren", "dur": 270,
+      "purpose": "Quest-Entscheidung: [Eingreifen?] JA / NEIN – Cliffhanger: Cursor springt auf JA.",
+      "character": "Kaelan", "location": "Hinter den Büschen",
+      "camera": "Sehr langsamer Push auf die Augen",
+      "light": "Sonnenstrahl auf dem Gesicht",
+      "audio": "sfx_choice_open, sfx_heartbeat, sfx_choice_select, sfx_riser_whiteout",
+      "prompt": "S05_SH04_kaelan_bushes", "assets": ["S05_SH04_kaelan_bushes_v01_final", "code: ChoicePrompt"], "status": "v03"
+    },
+    {
+      "id": "S06_SH01_stone_distraction", "part": 4, "scene": "S06 Erste Begegnung", "dur": 180,
+      "purpose": "Ein Stein trifft Goblin A – [Abgelenkt]. Er dreht sich weg von Elara.",
+      "character": "2 Goblins", "location": "Waldstraße",
+      "camera": "Medium, Whip-Push zum Treffer",
+      "light": "Nachmittag",
+      "audio": "mus_battle_drums, sfx_throw_whoosh, sfx_bonk, sfx_goblin_cackle",
+      "prompt": "ENV_forest_road + CREA_Goblin_pair_sprite (gesplittet)", "assets": ["CREA_Goblin_pair_sprite_v01_final_A/B", "code: Stone, Tag"], "status": "v03"
+    },
+    {
+      "id": "S06_SH02_spear_thrust", "part": 4, "scene": "S06 Erste Begegnung", "dur": 120,
+      "purpose": "Kaelan stößt mit dem Speer vom Karren zu – [Eisenspeer · Händlerware].",
+      "character": "Kaelan", "location": "Waldstraße",
+      "camera": "Living Diorama: Snap-Zoom, Speedlines entlang des Speers",
+      "light": "Cyan-Glow an der Speerspitze",
+      "audio": "sfx_spear_thrust",
+      "prompt": "S06_SH02_spear_thrust", "assets": ["S06_SH02_spear_thrust_v01_final"], "status": "v03"
+    },
+    {
+      "id": "S06_SH03_goblinB_strike", "part": 4, "scene": "S06 Erste Begegnung", "dur": 210,
+      "purpose": "Volltreffer auf Goblin Bs Schwachstelle – Impact-Frames, Data-Auflösung.",
+      "character": "Goblin B", "location": "Waldstraße",
+      "camera": "Zoom auf Goblin B, Impact-Shake",
+      "light": "Weißblitz, Datenglow",
+      "audio": "sfx_impact_crit, sfx_data_shatter",
+      "prompt": "ENV_forest_road + Goblin B", "assets": ["code: DataDissolve, combat FX"], "status": "v03"
+    },
+    {
+      "id": "S06_SH04_dodge", "part": 4, "scene": "S06 Erste Begegnung", "dur": 180,
+      "purpose": "Goblin A schlägt zu – Analyse zeigt die Angriffsbahn, Kaelan weicht in Bullet-Time aus.",
+      "character": "Kaelan, Goblin A", "location": "Waldstraße",
+      "camera": "Bullet-Time-Drift um die eingefrorene Szene",
+      "light": "Rote Vorhersage-Bahn, entsättigt",
+      "audio": "sfx_club_whoosh, sfx_heartbeat, sfx_scan",
+      "prompt": "S06_SH03_dodge (Refs: Kaelan + Goblins)", "assets": ["S06_SH03_dodge_v01_final", "code: AttackPrediction"], "status": "v03"
+    },
+    {
+      "id": "S06_SH05_goblinA_counter", "part": 4, "scene": "S06 Erste Begegnung", "dur": 150,
+      "purpose": "Konter auf das Gem-Amulett von Goblin A – Data-Auflösung.",
+      "character": "Goblin A", "location": "Waldstraße",
+      "camera": "Zoom auf Goblin A, Shake",
+      "light": "Weißblitz, Datenglow",
+      "audio": "sfx_spear_thrust, sfx_impact_crit, sfx_data_shatter",
+      "prompt": "ENV_forest_road + Goblin A", "assets": ["code: DataDissolve, combat FX"], "status": "v03"
+    },
+    {
+      "id": "S06_SH06_levelup", "part": 4, "scene": "S06 Erste Begegnung", "dur": 180,
+      "purpose": "LEVEL UP! 1 → 3. HP vollständig wiederhergestellt.",
+      "character": "Kaelan", "location": "Waldstraße",
+      "camera": "Langsamer Kran nach oben",
+      "light": "Gold/Cyan-Lichtströme",
+      "audio": "sfx_levelup, mus_triumph_pad",
+      "prompt": "S06_SH04_levelup", "assets": ["S06_SH04_levelup_v01_final", "code: LevelUp"], "status": "v03"
+    },
+    {
+      "id": "S07_SH01_elara_thanks", "part": 4, "scene": "S07 Eine sichere Reise", "dur": 210,
+      "purpose": "Elara: „Danke … du hast mich gerettet. Ich bin Elara.“ – [Beziehung: Freundlich].",
+      "character": "Elara", "location": "Waldstraße am Karren",
+      "camera": "Nah, langsamer Push",
+      "light": "Warm, schwebende Lichtpartikel",
+      "audio": "mus_adventure_pad, sfx_quest",
+      "prompt": "S07_SH01_elara_thanks (Ref: Elara)", "assets": ["S07_SH01_elara_thanks_v01_final", "UI_Elara_portrait", "code: QuestNotice"], "status": "v03"
+    },
+    {
+      "id": "S07_SH02_walking_together", "part": 4, "scene": "S07 Eine sichere Reise", "dur": 240,
+      "purpose": "Neue Quest: 'Eine sichere Reise' – gemeinsam Richtung Sonnenuntergang, der Monolith am Horizont.",
+      "character": "Kaelan, Elara", "location": "Straße durch die Hügel",
+      "camera": "Langsamer Pull-back / Kran",
+      "light": "Sonnenuntergang, Gegenlicht",
+      "audio": "mus_adventure_pad, sfx_quest",
+      "prompt": "S07_SH02_walking_together (Refs: Kaelan + Elara)", "assets": ["S07_SH02_walking_together_v01_final", "code: QuestNotice"], "status": "v03"
+    },
+    {
+      "id": "S07_SH03_title_teaser", "part": 4, "scene": "S07 Eine sichere Reise", "dur": 180,
+      "purpose": "Titelkarte – „Fortsetzung folgt …“, in der Ferne Wolfsgeheul.",
+      "character": "–", "location": "Schwarz",
+      "camera": "Statisch, Licht-Sweep",
+      "light": "Gold auf Schwarz",
+      "audio": "sfx_braam_title, sfx_wolf_howl",
+      "prompt": "Code-only", "assets": ["code: TitleCard"], "status": "v03"
+    }
+  ]
+}

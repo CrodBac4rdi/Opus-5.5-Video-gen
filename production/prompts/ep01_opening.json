@@ -12,10 +12,21 @@
       "core_traits": "sleek elongated body made of dark violet-black shadow fur with crisp clean cel-shaded outlines and purple rim highlights, two glowing crimson eyes, bared sharp white fangs, a long bushy tail, a small glowing violet crystal embedded in its forehead"
     },
     "world": {
-      "meadow": "the dawn meadow of Aethelgard: rolling hills of tall emerald grass and tiny white flowers, scattered moss-covered rocks, distant blue mountains, giant floating rock islands with waterfalls, golden-pink sunrise sky"
+      "meadow": "the dawn meadow of Aethelgard: rolling hills of tall emerald grass and tiny white flowers, scattered moss-covered rocks, distant blue mountains, giant floating rock islands with waterfalls, golden-pink sunrise sky",
+      "forest_road": "a dirt road along the edge of an ancient sunlit forest in Aethelgard, tall trees, bushes, warm golden afternoon light"
     },
     "style": {
-      "anime": "Style: high-end 2D action anime key visual in the style of Ufotable and MAPPA productions, crisp clean black lineart, cel shading with hard-edged two-tone shadows, vibrant saturated colors, hand-painted anime background art, cinematic lighting with soft bloom. Flat 2D anime cel look, not photorealistic, not 3D render, no hyper-realism. No text, no letters, no UI elements, no watermark, no frame border"
+      "anime": "Style: high-end 2D action anime key visual in the style of Ufotable and MAPPA productions, crisp clean black lineart, cel shading with hard-edged two-tone shadows, vibrant saturated colors, hand-painted anime background art, cinematic lighting with soft bloom. Flat 2D anime cel look, not photorealistic, not 3D render, no hyper-realism. No text, no letters, no UI elements, no watermark, no frame border, full-bleed image without black letterbox bars"
+    },
+    "ref_note_multi": "Reference images attached: keep these exact character designs - same faces, hair, eyes, outfits, colors and proportions. The references are design sheets only, not the scene layout",
+    "elara": {
+      "identity": "Elara, a 17-year-old anime girl, a young traveling merchant",
+      "core_traits": "long chestnut-brown hair tied in a loose side braid over her left shoulder, warm amber eyes, light freckles across her nose, slim build, gentle face",
+      "clothing": "cream linen blouse with rolled sleeves, forest-green hooded travel cloak with a bronze clasp, brown leather satchel with brass buckles worn across her body, brown corset belt, dark brown skirt over leggings, brown leather boots"
+    },
+    "goblin": {
+      "identity": "Goblin, a small hunched anime goblin monster about the height of a child",
+      "core_traits": "olive-green skin, long pointed ears, glowing yellow eyes, sharp crooked teeth, ragged patched leather armor, a cracked glowing red gem amulet on its chest"
     }
   },
   "assets": {
@@ -96,6 +107,197 @@
       "pose": "standing tall and calm with a faint confident smile, right hand raised to chest height palm up with small glowing cyan light motes gathering above it, scarf and silver hair blowing in the wind",
       "camera": "low-angle medium-wide hero shot, character centered, framed from the knees up, sun directly behind him creating a strong golden rim light",
       "background": "a grassy hilltop in @world.meadow, far away on the horizon a colossal dark obelisk-like monolith tower rising into the clouds, dramatic sunrise clouds"
+    },
+    "CHAR_Elara_ref": {
+      "identity": "@elara.identity",
+      "core_traits": "@elara.core_traits",
+      "clothing": "@elara.clothing",
+      "pose": "Character model sheet: on the left a full-body front view standing in a relaxed neutral pose, on the right a large head-and-shoulders close-up portrait of the same character with a kind, slightly shy smile",
+      "camera": "orthographic eye-level view, even framing, the entire figure visible from hair to boots with margin",
+      "background": "plain flat light grey background, no environment, no ground shadow"
+    },
+    "CREA_Goblin_pair_sprite": {
+      "identity": "Two goblins: @goblin.identity",
+      "core_traits": "@goblin.core_traits",
+      "pose": "the left goblin raises a crude wooden club in a threatening stance, the right goblin crouches with clawed hands raised and a nasty grin; both face right; the two goblins stand clearly apart with wide empty space between them, not touching, not overlapping",
+      "camera": "three-quarter side view at eye level, both full bodies completely visible with generous margin, nothing cropped",
+      "background": "isolated on a plain solid pure white background, no ground, no cast shadow, no environment"
+    },
+    "CREA_ShadowWeasel_cute": {
+      "identity": "@weasel.identity",
+      "core_traits": "sleek elongated body made of dark violet-black shadow fur with crisp clean cel-shaded outlines and purple rim highlights, big round glossy crimson eyes, mouth closed, a small glowing violet crystal embedded in its forehead, a long fluffy tail",
+      "pose": "sitting upright on its hind legs like a curious meerkat, head tilted, looking innocent and harmless, facing left",
+      "camera": "side view at eye level, the entire body and tail fully visible and centered with generous margin, nothing cropped",
+      "background": "isolated on a plain solid pure white background, no ground, no cast shadow, no environment"
+    },
+    "ENV_sky_pov": {
+      "identity": "Background art plate: point of view looking straight up into the sky while lying in the grass of @world.meadow",
+      "core_traits": "tall emerald grass blades and tiny white flowers framing all edges of the image, several giant floating rock islands with long waterfalls high in the sky, a bright sun flare in the upper left, drifting white petals",
+      "pose": "empty scene, no characters, no people, no animals",
+      "camera": "extreme low worm's-eye view pointing straight up, wide angle",
+      "background": "vast golden-pink sunrise sky with soft layered clouds"
+    },
+    "ENV_forest_road": {
+      "identity": "Background art plate: @world.forest_road",
+      "core_traits": "an overturned wooden merchant cart with a broken wheel on the right side of the road, spilled crates, red apples and cloth bundles, a simple iron-tipped wooden spear lying in the grass at the left roadside",
+      "pose": "empty scene, no characters, no people, no creatures",
+      "camera": "medium-wide shot at eye level, the road crossing the frame horizontally, clear open space in the center of the road",
+      "background": "tall ancient trees, dense bushes on the left side, distant hills, warm afternoon light beams"
+    },
+    "S05_SH01_goblin_tracks": {
+      "identity": "Background art plate: a muddy forest trail at the edge of @world.forest_road",
+      "core_traits": "fresh small clawed three-toed footprints pressed into the mud, broken twigs, a torn scrap of green cloth caught on a thorny bush",
+      "pose": "empty scene, no characters, no creatures",
+      "camera": "low angle close to the ground following the footprints into the distance, deep perspective",
+      "background": "tall ancient trees, golden afternoon light beams through the leaves, light haze"
+    },
+    "S01_SH03_eyes_ecu": {
+      "refs": [
+        "production/raw/CHAR_Kaelan_ref_v01_final.png"
+      ],
+      "identity": "@kaelan.identity",
+      "core_traits": "@kaelan.core_traits",
+      "clothing": "@kaelan.clothing",
+      "pose": "eyes just opened wide in wonder",
+      "camera": "extreme close-up of his eyes only, framed from the eyebrows to the bridge of the nose, ice-blue irises with the sky and floating islands reflected in them, silver hair strands falling across",
+      "background": "soft blurred green grass around his face"
+    },
+    "S01_SH04_hilltop_back": {
+      "refs": [
+        "production/raw/CHAR_Kaelan_ref_v01_final.png"
+      ],
+      "identity": "@kaelan.identity",
+      "core_traits": "@kaelan.core_traits",
+      "clothing": "@kaelan.clothing",
+      "pose": "standing alone on a grassy hilltop seen from behind, scarf and silver hair blowing in the wind, looking out over the world",
+      "camera": "epic extreme wide shot from behind, he is small in the lower third of the frame",
+      "background": "vast panorama of @world.meadow with a winding river valley, forests and giant floating islands with waterfalls under a sunrise sky"
+    },
+    "S01_SH05_hands": {
+      "refs": [
+        "production/raw/CHAR_Kaelan_ref_v01_final.png"
+      ],
+      "identity": "@kaelan.identity",
+      "core_traits": "@kaelan.core_traits",
+      "clothing": "@kaelan.clothing",
+      "pose": "looking down at his own raised open hands in black fingerless gloves, shocked and disbelieving expression",
+      "camera": "close-up from slightly above and in front, both hands in sharp focus in the foreground, his face visible above them",
+      "background": "@world.meadow softly blurred, warm sunrise light"
+    },
+    "S02_SH02_reach_out": {
+      "refs": [
+        "production/raw/CHAR_Kaelan_ref_v01_final.png"
+      ],
+      "identity": "@kaelan.identity",
+      "core_traits": "@kaelan.core_traits",
+      "clothing": "@kaelan.clothing",
+      "pose": "kneeling on one knee in the grass, extending his right hand gently toward the right of the frame with a soft friendly smile, as if to pet a small animal",
+      "camera": "medium shot from the side at eye level, he is on the left half facing right, empty grass on the right half of the frame",
+      "background": "@world.meadow, soft morning light"
+    },
+    "S02_SH05_hand_stone": {
+      "refs": [
+        "production/raw/CHAR_Kaelan_ref_v01_final.png"
+      ],
+      "identity": "@kaelan.identity",
+      "core_traits": "@kaelan.core_traits",
+      "clothing": "@kaelan.clothing",
+      "pose": "his black fingerless-gloved right hand tightly gripping a fist-sized grey stone in the grass, knuckles tense",
+      "camera": "extreme close-up insert shot at ground level, shallow depth of field",
+      "background": "grass blades and tiny white flowers, the blurred dark silhouette of a small creature with glowing red eyes in the background"
+    },
+    "S05_SH04_kaelan_bushes": {
+      "refs": [
+        "production/raw/CHAR_Kaelan_ref_v01_final.png"
+      ],
+      "identity": "@kaelan.identity",
+      "core_traits": "@kaelan.core_traits",
+      "clothing": "@kaelan.clothing",
+      "pose": "crouching hidden behind leafy bushes, determined fierce expression with narrowed ice-blue eyes, a small grey stone in his right hand",
+      "camera": "close-up from a low angle through leaves, foreground leaves softly blurred, his face lit by a sunbeam",
+      "background": "@world.forest_road"
+    },
+    "S06_SH02_spear_thrust": {
+      "refs": [
+        "production/raw/CHAR_Kaelan_ref_v01_final.png"
+      ],
+      "identity": "@kaelan.identity",
+      "core_traits": "@kaelan.core_traits",
+      "clothing": "@kaelan.clothing",
+      "pose": "frozen mid-lunge thrusting a simple iron-tipped wooden spear forward toward the right of the frame with both hands, body stretched in a long dynamic stance, scarf and hair whipping back, intense focused eyes, a faint cyan glow trailing along the spear tip",
+      "camera": "dramatic low-angle side view, strong perspective, character facing screen right, full body in frame",
+      "background": "@world.forest_road, the overturned cart blurred in the background"
+    },
+    "S06_SH04_levelup": {
+      "refs": [
+        "production/raw/CHAR_Kaelan_ref_v01_final.png"
+      ],
+      "identity": "@kaelan.identity",
+      "core_traits": "@kaelan.core_traits",
+      "clothing": "@kaelan.clothing",
+      "pose": "standing upright on the road holding a simple wooden spear at his side, head slightly raised, eyes closed, calm, bathed in rising streams of golden and cyan light particles",
+      "camera": "medium shot from a low angle, character centered",
+      "background": "@world.forest_road, softly blurred trees"
+    },
+    "S02_SH03_weasel_lunge": {
+      "refs": [
+        "production/raw/CHAR_Kaelan_ref_v01_final.png",
+        "production/raw/CREA_ShadowWeasel_sprite_v01_final.png"
+      ],
+      "identity": "@kaelan.identity, and the @weasel.identity",
+      "core_traits": "Kaelan: @kaelan.core_traits. The weasel: @weasel.core_traits",
+      "clothing": "Kaelan wears @kaelan.clothing",
+      "pose": "frozen action moment: the Shadow Weasel leaps at Kaelan mid-air from the right with claws extended and fangs bared, Kaelan falls backward onto the grass raising his left forearm to shield himself, one jacket sleeve torn by the claws, shocked expression; no blood, no wounds",
+      "camera": "dynamic low-angle side view with a dutch tilt, both characters fully in frame, motion lines",
+      "background": "@world.meadow, flying grass blades and petals"
+    },
+    "S05_SH03_elara_threatened": {
+      "refs": [
+        "production/raw/CHAR_Elara_ref_v01_final.png",
+        "production/raw/CREA_Goblin_pair_sprite_v01_final.png"
+      ],
+      "identity": "@elara.identity, threatened by two goblins (@goblin.identity)",
+      "core_traits": "Elara: @elara.core_traits. The goblins: @goblin.core_traits",
+      "clothing": "Elara wears @elara.clothing",
+      "pose": "Elara kneels with her back against an overturned wooden merchant cart, frightened, clutching her satchel; the two goblins advance toward her from the left, one raising a crude wooden club",
+      "camera": "medium-wide shot at eye level, Elara on the right, the goblins in the center-left seen in three-quarter view from behind",
+      "background": "@world.forest_road with spilled crates and red apples"
+    },
+    "S06_SH03_dodge": {
+      "refs": [
+        "production/raw/CHAR_Kaelan_ref_v01_final.png",
+        "production/raw/CREA_Goblin_pair_sprite_v01_final.png"
+      ],
+      "identity": "@kaelan.identity, fighting a goblin (@goblin.identity)",
+      "core_traits": "Kaelan: @kaelan.core_traits. The goblin: @goblin.core_traits",
+      "clothing": "Kaelan wears @kaelan.clothing",
+      "pose": "frozen bullet-time moment: the GOBLIN on the right swings its crude wooden club with both of its own hands in a wide horizontal arc; Kaelan on the left, holding a simple wooden spear low in one hand, leans far back so the goblin's club passes just above his face; his ice-blue eyes calmly track the club; Kaelan's hands do not touch the club",
+      "camera": "close side view at eye level, Kaelan on the left facing right, the goblin on the right facing left, the club between them, motion streaks along the club's arc",
+      "background": "@world.forest_road",
+      "_note": "v01 rejected: Kaelan was holding the club himself, the goblin was empty-handed."
+    },
+    "S07_SH01_elara_thanks": {
+      "refs": [
+        "production/raw/CHAR_Elara_ref_v01_final.png"
+      ],
+      "identity": "@elara.identity",
+      "core_traits": "@elara.core_traits",
+      "clothing": "@elara.clothing",
+      "pose": "kneeling beside the overturned cart, looking up with relieved, slightly teary eyes and a warm grateful smile, one hand on her chest",
+      "camera": "close-up from a slight high angle, as seen by the person standing in front of her",
+      "background": "@world.forest_road, floating light motes, soft warm light"
+    },
+    "S07_SH02_walking_together": {
+      "refs": [
+        "production/raw/CHAR_Kaelan_ref_v01_final.png",
+        "production/raw/CHAR_Elara_ref_v01_final.png"
+      ],
+      "identity": "@kaelan.identity, and @elara.identity",
+      "core_traits": "Kaelan: @kaelan.core_traits. Elara: @elara.core_traits",
+      "clothing": "Kaelan wears @kaelan.clothing. Elara wears @elara.clothing",
+      "pose": "Kaelan and Elara walk side by side along a dirt road away from the camera, Kaelan carries a simple wooden spear over his shoulder, Elara points ahead with a smile",
+      "camera": "wide shot from behind, both characters small in the lower center of the frame",
+      "background": "the road winds through golden hills toward a distant sunset, far away on the horizon a colossal dark obelisk-like monolith tower rises into the clouds"
     }
   }
 }
