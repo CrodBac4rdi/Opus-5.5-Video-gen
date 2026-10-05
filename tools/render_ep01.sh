@@ -35,17 +35,17 @@ node tools/part_cards.mjs "$OUT/cards" >/dev/null
 echo "== full film"
 : > "$OUT/concat.txt"
 for P in 1 2 3 4; do echo "file 'seg_p$P.mp4'" >> "$OUT/concat.txt"; done
-ffmpeg -v error -y -f concat -safe 0 -i "$OUT/concat.txt" -c copy "$OUT/video.mp4"
+ffmpeg -nostdin -v error -y -f concat -safe 0 -i "$OUT/concat.txt" -c copy "$OUT/video.mp4"
 FULL=renders/EP01_${VER}_full.mp4
-ffmpeg -v error -y -i "$OUT/video.mp4" -i "$OUT/soundtrack.wav" -map 0:v -map 1:a \
+ffmpeg -nostdin -v error -y -i "$OUT/video.mp4" -i "$OUT/soundtrack.wav" -map 0:v -map 1:a \
   -c:v libx264 -preset slow -crf 20 -maxrate 3.6M -bufsize 7.2M -tune animation -pix_fmt yuv420p \
-  -af "volume=3.5dB,alimiter=limit=0.84:attack=1:release=60:level=false" -c:a aac -b:a 192k -movflags +faststart -shortest "$FULL"
+  -af "volume=3.5dB,alimiter=limit=0.71:attack=1:release=60:level=false" -c:a aac -b:a 192k -movflags +faststart -shortest "$FULL"
 
 echo "== parts"
 while read -r P A B; do
   T0=$(echo "scale=3; $A/$FPS" | bc); DUR=$(echo "scale=3; ($B-$A)/$FPS" | bc)
   OUTRO=$(echo "scale=3; $DUR-2.8" | bc); AOUT=$(echo "scale=3; $DUR-0.6" | bc)
-  ffmpeg -v error -y -ss "$T0" -t "$DUR" -i "$FULL" \
+  ffmpeg -nostdin -v error -y -ss "$T0" -t "$DUR" -i "$FULL" \
     -loop 1 -t "$DUR" -i "$OUT/cards/part${P}_intro.png" -loop 1 -t "$DUR" -i "$OUT/cards/part${P}_outro.png" \
     -filter_complex "[1:v]format=rgba,fade=t=in:st=0.4:d=0.4:alpha=1,fade=t=out:st=3.6:d=0.5:alpha=1[i];[2:v]format=rgba,fade=t=in:st=${OUTRO}:d=0.4:alpha=1[o];[0:v][i]overlay=0:0:shortest=1[v1];[v1][o]overlay=0:0:shortest=1,format=yuv420p[v];[0:a]afade=t=in:st=0:d=0.25,afade=t=out:st=${AOUT}:d=0.6[a]" \
     -map "[v]" -map "[a]" -c:v libx264 -preset slow -crf 20 -maxrate 4M -bufsize 8M -tune animation -c:a aac -b:a 192k -movflags +faststart \
